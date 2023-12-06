@@ -1,0 +1,104 @@
+ body {
+     background-color: #000000;
+     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 2000 1500'%3E%3Cdefs%3E%3Crect fill='none' stroke-width='85.5' id='a' x='-400' y='-300' width='800' height='600'/%3E%3C/defs%3E%3Cg style='transform-origin:center'%3E%3Cg transform='' style='transform-origin:center'%3E%3Cg transform='rotate(-160 0 0)' style='transform-origin:center'%3E%3Cg transform='translate(1000 750)'%3E%3Cuse stroke='%2351FF01' href='%23a' transform='rotate(10 0 0) scale(1.1)'/%3E%3Cuse stroke='%234cf801' href='%23a' transform='rotate(20 0 0) scale(1.2)'/%3E%3Cuse stroke='%2347f101' href='%23a' transform='rotate(30 0 0) scale(1.3)'/%3E%3Cuse stroke='%2342e901' href='%23a' transform='rotate(40 0 0) scale(1.4)'/%3E%3Cuse stroke='%233ee201' href='%23a' transform='rotate(50 0 0) scale(1.5)'/%3E%3Cuse stroke='%2339db01' href='%23a' transform='rotate(60 0 0) scale(1.6)'/%3E%3Cuse stroke='%2334d401' href='%23a' transform='rotate(70 0 0) scale(1.7)'/%3E%3Cuse stroke='%232fcd01' href='%23a' transform='rotate(80 0 0) scale(1.8)'/%3E%3Cuse stroke='%232ac500' href='%23a' transform='rotate(90 0 0) scale(1.9)'/%3E%3Cuse stroke='%2325be00' href='%23a' transform='rotate(100 0 0) scale(2)'/%3E%3Cuse stroke='%2320b700' href='%23a' transform='rotate(110 0 0) scale(2.1)'/%3E%3Cuse stroke='%231bb000' href='%23a' transform='rotate(120 0 0) scale(2.2)'/%3E%3Cuse stroke='%2317a900' href='%23a' transform='rotate(130 0 0) scale(2.3)'/%3E%3Cuse stroke='%2312a100' href='%23a' transform='rotate(140 0 0) scale(2.4)'/%3E%3Cuse stroke='%230d9a00' href='%23a' transform='rotate(150 0 0) scale(2.5)'/%3E%3Cuse stroke='%23089300' href='%23a' transform='rotate(160 0 0) scale(2.6)'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+     background-attachment: fixed;
+     background-size: cover;
+     padding: 0;
+     margin: 0;
+ }
+
+ footer {
+     width: 100%;
+     height: 50px;
+     background-color: #20C000;
+
+ }
+
+ header {
+     background-color: white;
+ }
+
+ .title {
+     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+     margin-left: 0%;
+     margin-bottom: 0%;
+     margin-top: 0%;
+     margin-right: 0%;
+     padding: 2%;
+
+ }
+
+ .nav-bar {
+     background-color: #20C000;
+     width: 100%;
+     height: 100px;
+     display: flex;
+     flex-direction: row;
+     gap: 20px;
+     justify-content: flex-end;
+     align-items: flex-end;
+
+ }
+
+ .nav-bar-button {
+     font-size: xx-large;
+     color: black;
+     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+     margin-bottom: 1%;
+     margin-right: 0.5%;
+     transition: 1s;
+     margin-right: 1%;
+ }
+
+ .nav-bar-button:hover {
+     color: black;
+     scale: 1.1;
+     transition: 1s;
+     cursor: pointer;
+ }
+
+ .content-container {
+    border-radius: 5px;
+     background: rgba(255, 255, 255, 0.34);
+     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+     backdrop-filter: blur(7.7px);
+     -webkit-backdrop-filter: blur(7.7px);
+     width: 80%;
+     height: fit-content;
+     margin-left: 10%;
+     margin-right: 10%;
+     display: flex;
+     flex-direction: column;
+     justify-content: baseline;
+     flex-direction: column;
+     align-items: center;
+     padding-top: 10px;
+     padding-bottom: 10px;
+     padding-left: 10px;
+     padding-right: 10px;
+     flex-wrap: wrap;
+ }
+
+ .text-image {
+     flex-direction: row;
+     display: flex;
+     gap: 10px;
+     height: fit-content;
+     width: 100%;
+     font-size: large;
+     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+     color: black;
+ }
+
+ .separator {
+     width: 100%;
+     height: 2px;
+     background-color: black;
+     margin-top: 5px;
+     margin-bottom: 5px;
+ }
+
+ .image_xl {
+    height: 250px;
+    width: 250px;
+ }
