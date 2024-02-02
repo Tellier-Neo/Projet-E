@@ -3,7 +3,7 @@
      background-size: cover;
      padding: 0;
      margin: 0;
-     overflow-x: hidden;
+     overflow-x: hidden; overflow-y: hidden;
  }
 
  footer {
@@ -15,6 +15,22 @@
     
     
  }
+
+ .progress-container {
+    position: fixed;
+    height: 78%;
+    width: 15px; /* Ajustez la largeur selon vos besoins */
+    background-color: #f1f1f1;
+    top : 25;
+    left: 10;
+}
+
+.progress-bar {
+    height: 0;
+    width: 100%;
+    background-color: #4caf50;
+    transition: height 0.3s;
+}
 
 .nav-bar-button_var2 {
     font-size: xx-large;
@@ -109,3 +125,4 @@
      height: 250px;
      width: 250px;
  }
+
