@@ -3,8 +3,22 @@
      background-size: cover;
      padding: 0;
      margin: 0;
-     overflow-x: hidden; overflow-y: hidden;
- }
+     overflow-x: hidden;
+     scrollbar-color: white ;
+    }
+
+    body::-webkit-scrollbar {
+        width: 0px;
+    }
+
+    body::-webkit-scrollbar-thumb {
+        background-color: dark;
+    }
+    
+
+    body::-webkit-scrollbar-track {
+        background-color: light;
+    }
 
  footer {
      width: 100%;
@@ -18,18 +32,23 @@
 
  .progress-container {
     position: fixed;
-    height: 78%;
+    height: 50%;
     width: 15px; /* Ajustez la largeur selon vos besoins */
     background-color: #f1f1f1;
-    top : 25;
+    top : 50;
     left: 10;
+    display: 1;
+
+
 }
+
 
 .progress-bar {
     height: 0;
     width: 100%;
     background-color: #4caf50;
     transition: height 0.3s;
+    display: 1;
 }
 
 .nav-bar-button_var2 {
