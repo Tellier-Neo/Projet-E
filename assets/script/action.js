@@ -14,3 +14,7 @@ document.getElementById('boutton_3').addEventListener('click', function () {
 document.getElementById('boutton_4').addEventListener('click', function () {
   window.location.href = 'wikicar.html';
 });
+
+document.getElementById('boutton_wikicar_inpage').addEventListener('click', function () {
+  window.location.href = 'wikicar.html';
+});
