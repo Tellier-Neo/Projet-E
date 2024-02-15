@@ -18,4 +18,11 @@
     window.location.href = 'wikicar.html';
   });
 
-  
+  document.getElementById('logButton').addEventListener('click', function () {
+    window.location.href = 'login.html';
+  });
+
+  document.getElementById('registerButton').addEventListener('click', function () {
+    window.location.href = 'register.html';
+  });
+
