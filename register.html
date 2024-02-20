@@ -21,7 +21,7 @@
 
     </script>
     <div class="loginForm">
-        <form action="POST"> <p class="formTitle"><strong>Se connecter</strong></p></form>
+        <form action="POST"><p class="formTitle"><strong>Créer un compte</strong></p></form>
         <label for="Username">Nom d'utilisateur</label>
         
         <input type="text" name="Username" id="Username_input">
@@ -31,16 +31,18 @@
         <input type="password" name="Password" id="Password_input">
         
         <div class="LogcontainerSelector">
-        <div id="SubmitLogin">Se connecter</div>
-        <div id="registerButton2">S'inscrire</div>
+        <div id="SubmitLogin">Créer un compte</div>
+        <div id="registerButton2">J'ai déjà un compte</div>
         <script>
+            
         document.addEventListener("DOMContentLoaded", function() {
+            
             var registerButton = document.getElementById("registerButton2");
 
             registerButton.addEventListener("click", function() {
-                window.location.href = "register.html";
+                window.location.href = "login.html";
             });
-        });
+        }); 
         </script>
       </div>
       </div>
