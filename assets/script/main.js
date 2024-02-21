@@ -1,4 +1,26 @@
+async function checkUUIDInCookies() {
+  while (true) {
+   
+    await sleep(1000);
 
+
+    const cookies = document.cookie;
+
+    
+    if (cookies.includes('UUID=')) {
+      console.log('UUID trouvé dans les cookies!');
+      
+     
+      console.log('UUID non trouvé dans les cookies.');
+    }
+  }
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+checkUUIDInCookies();
   document.getElementById('boutton_1').addEventListener('click', function () {
     window.location.href = 'index.html';
   });
@@ -25,4 +47,6 @@
   document.getElementById('registerButton').addEventListener('click', function () {
     window.location.href = 'register.html';
   });
+
+
 

@@ -2,48 +2,77 @@
 <html>
 
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Login</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='/assets/style/style.css'>
-    
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Login</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <link rel='stylesheet' type='text/css' media='screen' href='/assets/style/style.css'>
+
 </head>
 
 <body>
-    <button id="mainReturn" ><strong> ← Retour a l'accueil</strong></button>
-    <script>
-        
-  document.getElementById('mainReturn').addEventListener('click', function () {
-    window.location.href = 'index.html';
-  });
+  <button id="mainReturn"><strong> ← Retour a l'accueil</strong></button>
+  <script>
+
+    document.getElementById('mainReturn').addEventListener('click', function () {
+      window.location.href = 'index.html';
+    });
 
 
-    </script>
-    <div class="loginForm">
-        <form action="POST"> <p class="formTitle"><strong>Se connecter</strong></p></form>
-        <label for="Username">Nom d'utilisateur</label>
-        
-        <input type="text" name="Username" id="Username_input">
-        
-        <label for="Password">Mot de passe</label>
-        
-        <input type="password" name="Password" id="Password_input">
-        
-        <div class="LogcontainerSelector">
-        <div id="SubmitLogin">Se connecter</div>
-        <div id="registerButton2">S'inscrire</div>
-        <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var registerButton = document.getElementById("registerButton2");
+  </script>
+  <div class="loginForm">
+    <form action="POST">
+      <p class="formTitle"><strong>Se connecter</strong></p>
+    </form>
+    <label for="Username">Nom d'utilisateur</label>
 
-            registerButton.addEventListener("click", function() {
-                window.location.href = "register.html";
+    <input type="text" name="Username" id="Username_input">
+
+    <label for="Password">Mot de passe</label>
+
+    <input type="password" name="Password" id="Password_input">
+
+    <div class="LogcontainerSelector">
+      <div id="SubmitLogin">Se connecter</div>
+      <script>
+        document.getElementById('SubmitLogin').addEventListener('click', async () => {
+          const username = document.getElementById('Username_input').value;
+          const password = document.getElementById('Password_input').value;
+
+          try {
+            const response = await fetch('/login', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ username, password }),
             });
+
+            if (response.ok) {
+              const data = await response.json();
+              console.log('Connexion réussie. UUID:', data.uuid);
+              // Vous pouvez ajouter ici le code que vous souhaitez exécuter après une connexion réussie
+            } else {
+              const errorData = await response.json();
+              console.error('Erreur de connexion:', errorData.error);
+            }
+          } catch (error) {
+            console.error('Erreur lors de la requête de connexion:', error);
+          }
         });
-        </script>
-      </div>
-      </div>
+      </script>
+      <div id="registerButton2">S'inscrire</div>
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          var registerButton = document.getElementById("registerButton2");
+
+          registerButton.addEventListener("click", function () {
+            window.location.href = "register.html";
+          });
+        });
+      </script>
+    </div>
+  </div>
 </body>
 
 </html>

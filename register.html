@@ -59,13 +59,17 @@
         if (xhr.status == 201) {
           resultDiv.innerHTML = 'Création de compte réussie';
           console.log('Utilisateur créé avec succès.');
+          
         } else if (xhr.status == 400) {
           resultDiv.innerHTML ='Nom d\'utilisateur déjà pris'
+          
+          
           
           console.error('Erreur lors de la création de l\'utilisateur.');
           
         } else if (xhr.status == 600) {
           resultDiv.innerHTML ="Veuillez remplir les deux champs"
+          
         }
       }
     };
