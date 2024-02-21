@@ -2,50 +2,96 @@
 <html>
 
 <head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Login</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='/assets/style/style.css'>
-    
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Login</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <link rel='stylesheet' type='text/css' media='screen' href='/assets/style/style.css'>
+
 </head>
 
 <body>
-    <button id="mainReturn" ><strong> ← Retour a l'accueil</strong></button>
-    <script>
+  <button id="mainReturn"><strong> ← Retour a l'accueil</strong></button>
+  <script>
+
+    document.getElementById('mainReturn').addEventListener('click', function () {
+      window.location.href = 'index.html';
+    });
+
+
+  </script>
+  <div class="loginForm">
+    <form action="POST">
+      <p class="formTitle"><strong>Créer un compte</strong></p>
+      <div id="resultRegister" style="color: red; margin: 2%;"></div>
+    </form>
+    <label for="Username">Nom d'utilisateur</label>
+
+    <input type="text" name="Username" id="Username_input">
+
+    <label for="Password">Mot de passe</label>
+
+    <input type="password" name="Password" id="Password_input">
+
+    <div class="LogcontainerSelector">
+      <div id="SubmitLogin">Créer un compte</div>
+      <script>
+        document.getElementById('SubmitLogin').addEventListener('click', function() {
+    var username = document.getElementById('Username_input').value;
+    var password = document.getElementById('Password_input').value;
+    var resultDiv = document.getElementById('resultRegister');
+
+
+    var xhr = new XMLHttpRequest();
+    var url = 'http://192.168.64.242:3000/register';
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState == 4) {
         
-  document.getElementById('mainReturn').addEventListener('click', function () {
-    window.location.href = 'index.html';
+        document.getElementById('Username_input').value = '';
+        document.getElementById('Password_input').value = '';
+
+       
+        console.log(xhr.responseText);
+
+        if (xhr.status == 201) {
+          resultDiv.innerHTML = 'Création de compte réussie';
+          console.log('Utilisateur créé avec succès.');
+        } else if (xhr.status == 400) {
+          resultDiv.innerHTML ='Nom d\'utilisateur déjà pris'
+          
+          console.error('Erreur lors de la création de l\'utilisateur.');
+          
+        } else if (xhr.status == 600) {
+          resultDiv.innerHTML ="Veuillez remplir les deux champs"
+        }
+      }
+    };
+
+    var data = {
+      identifiant: username,
+      password: password
+    };
+
+    xhr.send(JSON.stringify(data));
   });
+      </script>
+      <div id="registerButton2">J'ai déjà un compte</div>
+      <script>
 
+        document.addEventListener("DOMContentLoaded", function () {
 
-    </script>
-    <div class="loginForm">
-        <form action="POST"><p class="formTitle"><strong>Créer un compte</strong></p></form>
-        <label for="Username">Nom d'utilisateur</label>
-        
-        <input type="text" name="Username" id="Username_input">
-        
-        <label for="Password">Mot de passe</label>
-        
-        <input type="password" name="Password" id="Password_input">
-        
-        <div class="LogcontainerSelector">
-        <div id="SubmitLogin">Créer un compte</div>
-        <div id="registerButton2">J'ai déjà un compte</div>
-        <script>
-            
-        document.addEventListener("DOMContentLoaded", function() {
-            
-            var registerButton = document.getElementById("registerButton2");
+          var registerButton = document.getElementById("registerButton2");
 
-            registerButton.addEventListener("click", function() {
-                window.location.href = "login.html";
-            });
+          registerButton.addEventListener("click", function () {
+            window.location.href = "login.html";
+          });
         }); 
-        </script>
-      </div>
-      </div>
+      </script>
+    </div>
+  </div>
 </body>
 
 </html>
