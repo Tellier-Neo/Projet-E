@@ -59,6 +59,7 @@
         if (xhr.status == 201) {
           resultDiv.innerHTML = 'Création de compte réussie';
           console.log('Utilisateur créé avec succès.');
+          resultDiv.style.color = 'blue';
           
         } else if (xhr.status == 400) {
           resultDiv.innerHTML ='Nom d\'utilisateur déjà pris'

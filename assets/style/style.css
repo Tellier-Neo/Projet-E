@@ -321,11 +321,7 @@
     
 }
 
-#Username_input:focus {
-    background-color: #131313;
-    color: #f1f1f1;
-    transition: 250ms;
-}
+
 
 #Password_input {
     width: 95%;
@@ -336,11 +332,7 @@
     
 }
 
-#Password_input:focus {
-    background-color: #131313;
-    color: #f1f1f1;
-    transition: 250ms;
-}
+
 .formTitle {
     font-size: 150%;
     text-align: center;

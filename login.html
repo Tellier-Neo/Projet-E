@@ -21,57 +21,87 @@
 
   </script>
   <div class="loginForm">
-    <form action="POST">
+    <form>
       <p class="formTitle"><strong>Se connecter</strong></p>
-    </form>
-    <label for="Username">Nom d'utilisateur</label>
+      <div id="resultRegister" style="color: red; margin: 2%;"></div>
+  
+      <label for="Username">Nom d'utilisateur</label>
+      <input type="text" name="Username" id="Username_input">
+  
+      <label for="Password">Mot de passe</label>
+      <input type="password" name="Password" id="Password_input">
+  
+      <div class="LogcontainerSelector">
+        <div id="SubmitLogin" onclick="submitLogin()">Se connecter</div>
+        <script>
+          async function submitLogin() {
+    const usernameInput = document.getElementById('Username_input');
+    const passwordInput = document.getElementById('Password_input');
+    const resultDiv = document.getElementById('resultRegister');
 
-    <input type="text" name="Username" id="Username_input">
+    // Récupérer les valeurs des champs de saisie
+    const username = usernameInput.value;
+    const password = passwordInput.value;
 
-    <label for="Password">Mot de passe</label>
+    // Nettoyer les champs de saisie
+    usernameInput.value = '';
+    passwordInput.value = '';
 
-    <input type="password" name="Password" id="Password_input">
+    const data = {
+      identifiant: username,
+      password: password
+    };
 
-    <div class="LogcontainerSelector">
-      <div id="SubmitLogin">Se connecter</div>
-      <script>
-        document.getElementById('SubmitLogin').addEventListener('click', async () => {
-          const username = document.getElementById('Username_input').value;
-          const password = document.getElementById('Password_input').value;
+    try {
+      const response = await fetch('http://192.168.64.242:3000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Basic ' + btoa(username + ':' + password)
+        },
+        body: JSON.stringify(data)
+      });
 
-          try {
-            const response = await fetch('/login', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ username, password }),
+      if (response.ok) {
+        const result = await response.json();
+        console.log('Réponse du serveur:', result);
+
+
+        resultDiv.textContent = 'Connexion réussie!';
+        resultDiv.style.color = 'blue';
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 20000);
+      } else {
+        console.error('Erreur lors de la requête:', response.statusText);
+
+        
+        resultDiv.textContent = 'Erreur de connexion. Veuillez réessayer.';
+        resultDiv.style.color = 'red';
+      }
+    } catch (error) {
+      console.error('Erreur lors de la requête:', error.message);
+
+      
+      resultDiv.textContent = 'Erreur de connexion. Veuillez réessayer.';
+      resultDiv.style.color = 'red';
+    }
+  }
+        </script>
+  
+        <div id="registerButton2">S'inscrire</div>
+        <script>
+          document.addEventListener("DOMContentLoaded", function () {
+            var registerButton = document.getElementById("registerButton2");
+  
+            registerButton.addEventListener("click", function () {
+              window.location.href = "register.html";
             });
-
-            if (response.ok) {
-              const data = await response.json();
-              console.log('Connexion réussie. UUID:', data.uuid);
-              // Vous pouvez ajouter ici le code que vous souhaitez exécuter après une connexion réussie
-            } else {
-              const errorData = await response.json();
-              console.error('Erreur de connexion:', errorData.error);
-            }
-          } catch (error) {
-            console.error('Erreur lors de la requête de connexion:', error);
-          }
-        });
-      </script>
-      <div id="registerButton2">S'inscrire</div>
-      <script>
-        document.addEventListener("DOMContentLoaded", function () {
-          var registerButton = document.getElementById("registerButton2");
-
-          registerButton.addEventListener("click", function () {
-            window.location.href = "register.html";
           });
-        });
-      </script>
-    </div>
+        </script>
+      </div>
+    </form>
+  </div>
   </div>
 </body>
 
