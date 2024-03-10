@@ -1,43 +1,198 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Projet E</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='assets/style/style.css' id="themeStylesheet">
+    <head>
+        <meta charset='utf-8'>
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        <title>Projet E</title>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <link rel='stylesheet' type='text/css' media='screen'
+            href='assets/style/style.css' id="themeStylesheet">
+        <script src="assets/script/session_check.js"></script>
 
-</head>
+    </head>
 
-<body>
-    <div class="nav-bar">
+    <body>
+        <div class="nav-bar">
 
-        <div class="nav-bar-button" id="boutton_1">
-            Menu
+            <div class="nav-bar-button" id="boutton_1">
+                Menu
+            </div>
+            <div class="nav-bar-button_var2" id="boutton_2">
+                Rally
+            </div>
+            <div class="nav-bar-button" id="boutton_3">
+                Groupe B
+            </div>
+            <div class="nav-bar-button" id="boutton_4">
+                Wikicar
+            </div>
         </div>
-        <div class="nav-bar-button_var2" id="boutton_2">
-            Rally
-        </div>
-        <div class="nav-bar-button" id="boutton_3">
-            Groupe B
-        </div>
-        <div class="nav-bar-button" id="boutton_4">
-            Wikicar
-        </div>
-    </div>
-    
-
-    <div class="content-container_class2">
-
+        <div class="logbar">
+            <button id="logButton" style="display: inline;"
+                class="logRegDisButton"> Se connecter</button>
+            <button id="registerButton" style="display: inline;"
+                class="logRegDisButton">Créer un compte</button>
+            <div id="userName" style="display: none;"
+                class="logRegDisButton2"></div>
+            <script>// Fonction pour supprimer le cookie par son nom
+        function deleteCookie(cookieName) {
+            document.cookie = cookieName + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        }
         
+        // Fonction pour déconnecter l'utilisateur
+        async function disconnectUser() {
+            const userUUID = getCookieValue('ProjetE_unique_user_token');
+        
+            // Vérifie la présence du userUUID dans les cookies
+            if (userUUID) {
+                try {
+                    // Envoie une requête vers /disconnect avec le userUUID
+                    const response = await fetch('http://172.28.183.241:3000/disconnect', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ userUUID }),
+                    });
+        
+                    if (response.ok) {
+                        console.log('Utilisateur déconnecté avec succès.');
+                    } else {
+                        console.error('Erreur lors de la requête (disconnect):', response.statusText);
+                    }
+                } catch (error) {
+                    console.error('Erreur lors de la requête (disconnect):', error.message);
+                }
+        
+                // Supprime le cookie userUUID
+                deleteCookie('ProjetE_unique_user_token');
+        
+                // Recharge la page
+                location.reload();
+            } else {
+                console.log('Pas de userUUID trouvé dans les cookies. Aucune déconnexion nécessaire.');
+            }
+        }
+        
+        
+        </script>
+            <button id="Unlog" style="display: none;" class="logRegDisButton"
+                onclick="disconnectUser()">Se
+                déconnecter</button>
+        </div>
 
-    </div>
+        <div id="carousel-container">
+            <div class="carousel-slide">
+                <img src="/assets/images/rallyemoderne.png" alt="Slide 1">
+                <div class="carousel-content">
+                    <h2>L'univers du Rallye Moderne:</h2>
+                    <p>L'univers du rallye moderne s'érige comme un spectacle
+                        captivant qui allie la maîtrise technique, la bravoure
+                        des pilotes, et la puissance des bolides. À travers des
+                        compétitions mondiales, ce sport automobile pousse les
+                        limites de l'endurance humaine et mécanique. Des courses
+                        effrénées sur des terrains diversifiés révèlent
+                        l'essence même du rallye moderne, où la stratégie et la
+                        performance convergent pour créer des moments
+                        inoubliables.</p>
+                </div>
+            </div>
+            <div class="carousel-slide">
+                <img src="/assets/images/rallyetechno.png" alt="Slide 2">
+                <div class="carousel-content">
+                    <h2>Technologie de Pointe</h2>
+                    <p>La technologie de pointe redéfinit le paysage du rallye
+                        moderne, plaçant des machines sophistiquées entre les
+                        mains de pilotes aguerris. Des systèmes de transmission
+                        intelligents aux matériaux ultralégers, chaque composant
+                        est minutieusement conçu pour optimiser la performance.
+                        Le rallye moderne devient ainsi le terrain d'essai
+                        ultime où l'innovation automobile émerge et influence le
+                        développement des véhicules de tous les jours.</p>
+                </div>
+            </div>
+            <div class="carousel-slide">
+                <img src="/assets/images/rallyepilote.png" alt="Slide 3">
+                <div class="carousel-content">
+                    <h2>Les Pilotes Émérites</h2>
+                    <p>Les pilotes émérites du rallye moderne ne sont pas
+                        simplement des conducteurs, mais des artistes de la
+                        course, fusionnant habileté technique et audace. Leurs
+                        compétences exceptionnelles transforment chaque virage,
+                        chaque saut en une expression de maîtrise absolue. Ce
+                        sont des héros de l'asphalte, chevauchant des machines
+                        puissantes avec une synchronisation parfaite, défiant la
+                        gravité à chaque instant.</p>
+                </div>
+            </div>
+            <div class="carousel-slide">
+                <img src="/assets/images/rallyecircuit.png" alt="Slide 4">
+                <div class="carousel-content">
+                    <h2>Circuits Épiques</h2>
+                    <p>Les circuits épiques du rallye moderne invitent les
+                        compétiteurs à affronter des défis variés, des routes de
+                        montagne sinueuses aux pistes poussiéreuses. Chaque
+                        emplacement devient un chapitre dans l'histoire de la
+                        course, mettant en lumière des paysages spectaculaires
+                        et des conditions météorologiques changeantes. Ces
+                        circuits emblématiques sont le théâtre où se déroulent
+                        les duels épiques entre hommes et machines.</p>
+                </div>
+            </div>
+            <div class="carousel-slide">
+                <img src="/assets/images/rallyefan.png" alt="Slide 5">
+                <div class="carousel-content">
+                    <h2>Passion des Fans</h2>
+                    <p>La passion des fans constitue le cœur battant du rallye
+                        moderne. Des tribunes bondées aux zones spectateurs en
+                        pleine nature, l'enthousiasme des supporters crée une
+                        ambiance électrique. Ces aficionados dévoués contribuent
+                        à l'énergie unique qui entoure chaque événement, faisant
+                        du rallye moderne bien plus qu'un simple sport, mais une
+                        expérience collective inégalée.</p>
+                </div>
+            </div>
 
-</body>
-<footer>
-    <div class="footer_text">Tellier Néo - 2023 - Projet E</div>
-</footer>
-<script src="/assets/script/main.js"></script>
+            <div class="carousel-navigation">
+                <button class="carousel-btn" onclick="prevSlide()">Slide
+                    précédente</button>
+                <button class="carousel-btn" onclick="nextSlide()">Slide
+                    suivante</button>
+            </div>
+        </div>
+
+        <script>
+        let currentSlide = 0;
+    const slides = document.querySelectorAll('.carousel-slide');
+
+    function showSlide(index) {
+        slides.forEach((slide) => {
+            slide.classList.remove('active'); // Ajoutez cette ligne pour supprimer la classe 'active'
+        });
+
+        slides[index].classList.add('active'); // Ajoutez cette ligne pour ajouter la classe 'active'
+    }
+
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+    }
+
+    function prevSlide() {
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+        showSlide(currentSlide);
+    }
+
+    // Afficher la première diapositive au chargement de la page
+    showSlide(currentSlide);
+
+    </script>
+
+    </body>
+    <footer>
+        <div class="footer_text">Tellier Néo - 2023 - Projet E</div>
+    </footer>
+    <script src="/assets/script/main.js"></script>
 
 </html>

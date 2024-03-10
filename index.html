@@ -1,232 +1,371 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Projet E</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='assets/style/style.css' id="themeStylesheet">
+    <head>
+        <meta charset='utf-8'>
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        <title>Projet E</title>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <link rel='stylesheet' type='text/css' media='screen'
+            href='assets/style/style.css' id="themeStylesheet">
+        <script src="assets/script/session_check.js"></script>
 
-</head>
+    </head>
 
-<body>
-    <div class="nav-bar">
+    <body>
+        <div class="nav-bar">
 
-        <div class="nav-bar-button_var2" id="boutton_1">
-            Menu
-        </div>
-        <div class="nav-bar-button" id="boutton_2">
-            Rally
-        </div>
-        <div class="nav-bar-button" id="boutton_3">
-            Groupe B
-        </div>
-        <div class="nav-bar-button" id="boutton_4">
-            Wikicar
-        </div>
-    </div>
-    <div class="logbar">
-        <button id="logButton" style="display: inline;" class="logRegDisButton"> Se connecter</button>
-        <button id="registerButton" style="display: inline;" class="logRegDisButton">Créer un compte</button>
-        <div id="userName" style="display: none;"> Username</div>
-        <button id="Unlog" style="display: none;" class="logRegDisButton">Se déconnecter</button>
-    </div>
-
-    <div class="content-container">
-        <div class="text-image">
-            <img src="assets/images/logowrc.png" alt="image_test" class="image_xl">
-            <p class="text_alpha"> Le WRC, ou Championnat du Monde des Rallyes, est une compétition automobile
-                internationale qui met en avant
-                les compétences exceptionnelles des pilotes et des équipes dans des conditions de conduite extrêmes.
-                Regroupant certains des meilleurs conducteurs du monde, le WRC se déroule sur des routes variées, allant
-                de
-                chemins de terre aux routes goudronnées, à travers divers pays et continents.
-                Ce championnat exaltant met en vedette des voitures spécialement conçues pour résister aux rigueurs des
-                rallyes, avec des performances hors normes et des technologies de pointe. Les épreuves sont
-                caractérisées
-                par des virages serrés, des sauts spectaculaires, et des sections rapides, mettant à l'épreuve la
-                précision,
-                la concentration et le courage des pilotes.</p>
-        </div>
-        <div class="separator"></div>
-        <div class="text-image">
-            <img src="assets/images/groupeB_1.png" alt="image_test" class="image_xl">
-            <p class="text_alpha">
-                Le Groupe B, actif de 1982 à 1986, a marqué l'âge d'or du rallye avec des voitures surpuissantes et
-                innovantes. Les règles libérales ont engendré des bolides légendaires, mais la quête effrénée de
-                performance
-                a conduit à des accidents graves. Malgré sa fin abrupte en raison de préoccupations de sécurité, le
+            <div class="nav-bar-button_var2" id="boutton_1">
+                Menu
+            </div>
+            <div class="nav-bar-button" id="boutton_2">
+                Rally
+            </div>
+            <div class="nav-bar-button" id="boutton_3">
                 Groupe B
-                reste dans les mémoires comme une période mythique où l'audace et l'innovation ont redéfini le monde des
-                rallyes.
-            </p>
+            </div>
+            <div class="nav-bar-button" id="boutton_4">
+                Wikicar
+            </div>
         </div>
-        <div class="separator"></div>
-        <div class="text-image">
-            <img src="assets/images/WikiCar.png" alt="image_test" class="image_xl">
-            <p class="text_alpha">Explorez l'univers fascinant du rallye automobile sur Wikicar, une encyclopédie en
-                ligne dédiée aux
-                passionnés de ce sport palpitant. Cette page complète offre une plongée approfondie dans l'histoire, les
-                voitures emblématiques, les équipes légendaires, la technologie avancée, et les circuits mythiques du
-                monde
-                du rallye.
+        <div class="logbar">
+            <button id="logButton" style="display: inline;"
+                class="logRegDisButton"> Se connecter</button>
+            <button id="registerButton" style="display: inline;"
+                class="logRegDisButton">Créer un compte</button>
+            <div id="userName" style="display: none;"
+                class="logRegDisButton2" ></div>
+            <script>// Fonction pour supprimer le cookie par son nom
+            function deleteCookie(cookieName) {
+                document.cookie = cookieName + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            }
+            
+            // Fonction pour déconnecter l'utilisateur
+            async function disconnectUser() {
+                const userUUID = getCookieValue('ProjetE_unique_user_token');
+            
+                // Vérifie la présence du userUUID dans les cookies
+                if (userUUID) {
+                    try {
+                        // Envoie une requête vers /disconnect avec le userUUID
+                        const response = await fetch('http://172.28.183.241:3000/disconnect', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ userUUID }),
+                        });
+            
+                        if (response.ok) {
+                            console.log('Utilisateur déconnecté avec succès.');
+                        } else {
+                            console.error('Erreur lors de la requête (disconnect):', response.statusText);
+                        }
+                    } catch (error) {
+                        console.error('Erreur lors de la requête (disconnect):', error.message);
+                    }
+            
+                    // Supprime le cookie userUUID
+                    deleteCookie('ProjetE_unique_user_token');
+            
+                    // Recharge la page
+                    location.reload();
+                } else {
+                    console.log('Pas de userUUID trouvé dans les cookies. Aucune déconnexion nécessaire.');
+                }
+            }
+            
+            
+            </script>
+            <button id="Unlog" style="display: none;" class="logRegDisButton" onclick="disconnectUser()">Se
+                déconnecter</button>
+        </div>
 
-                Parcourez une collection exhaustive de voitures de rallye, depuis les légendaires machines du Groupe B
-                jusqu'aux créations modernes, et découvrez les détails techniques et les performances qui ont marqué
-                l'histoire du sport automobile... <br><button id="boutton_wikicar_inpage"
-                    class="integrated_button">Allez sur WikiCar </button></p>
+        <div class="content-container">
+            <div class="text-image">
+                <img src="assets/images/logowrc.png" alt="image_test"
+                    class="image_xl">
+                <p class="text_alpha"> Le WRC, ou Championnat du Monde des
+                    Rallyes, est une compétition automobile
+                    internationale qui met en avant
+                    les compétences exceptionnelles des pilotes et des équipes
+                    dans des conditions de conduite extrêmes.
+                    Regroupant certains des meilleurs conducteurs du monde, le
+                    WRC se déroule sur des routes variées, allant
+                    de
+                    chemins de terre aux routes goudronnées, à travers divers
+                    pays et continents.
+                    Ce championnat exaltant met en vedette des voitures
+                    spécialement conçues pour résister aux rigueurs des
+                    rallyes, avec des performances hors normes et des
+                    technologies de pointe. Les épreuves sont
+                    caractérisées
+                    par des virages serrés, des sauts spectaculaires, et des
+                    sections rapides, mettant à l'épreuve la
+                    précision,
+                    la concentration et le courage des pilotes.</p>
+            </div>
+            <div class="separator"></div>
+            <div class="text-image">
+                <img src="assets/images/groupeB_1.png" alt="image_test"
+                    class="image_xl">
+                <p class="text_alpha">
+                    Le Groupe B, actif de 1982 à 1986, a marqué l'âge d'or du
+                    rallye avec des voitures surpuissantes et
+                    innovantes. Les règles libérales ont engendré des bolides
+                    légendaires, mais la quête effrénée de
+                    performance
+                    a conduit à des accidents graves. Malgré sa fin abrupte en
+                    raison de préoccupations de sécurité, le
+                    Groupe B
+                    reste dans les mémoires comme une période mythique où   
+                    l'audace et l'innovation ont redéfini le monde des
+                    rallyes.
+                </p>
+            </div>
+            <div class="separator"></div>
+            <div class="text-image">
+                <img src="assets/images/WikiCar.png" alt="image_test"
+                    class="image_xl">
+                <p class="text_alpha">Explorez l'univers fascinant du rallye
+                    automobile sur Wikicar, une encyclopédie en
+                    ligne dédiée aux
+                    passionnés de ce sport palpitant. Cette page complète offre
+                    une plongée approfondie dans l'histoire, les
+                    voitures emblématiques, les équipes légendaires, la
+                    technologie avancée, et les circuits mythiques du
+                    monde
+                    du rallye.
+
+                    Parcourez une collection exhaustive de voitures de rallye,
+                    depuis les légendaires machines du Groupe B
+                    jusqu'aux créations modernes, et découvrez les détails
+                    techniques et les performances qui ont marqué
+                    l'histoire du sport automobile... <br><button
+                        id="boutton_wikicar_inpage"
+                        class="integrated_button">Allez sur WikiCar
+                    </button></p>
+
+            </div>
 
         </div>
+        <div class="header_bar">
+            <h2>Calendrier Rally 2024</h2>
+        </div>
+        <div class="calendar_global">
 
-    </div>
-    <div class="header_bar">
-        <h2>Calendrier Rally 2024</h2>
-    </div>
-    <div class="calendar_global">
-
-        <div class="stage_calendar">
-            <img src="https://img5.autodeclics.com/12/2024/01/photo_article/123471/58490/1200-L-rallye-de-monte-carlo-thierry-neuville-assomme-sbastien-ogier-le-classement-de-la-spciale-15.jpg"
-                alt="Logo Stage Monte-Carlo" class="image_M">
-            <p class="stage_info"><strong>Rallye Monte-Carlo </strong><br> Date : 25 - 28 Janvier <br> Le Rallye
-                Monte-Carlo est l'une
-                des épreuves les plus emblématiques du Championnat du Monde des Rallyes de la FIA. Organisé depuis 1911,
-                ce rallye hivernal se déroule principalement dans les Alpes françaises et monégasques. Réputé pour ses
-                conditions météorologiques imprévisibles et ses routes sinueuses, le Rallye Monte-Carlo est une épreuve
-                de renom, exigeant habileté et stratégie de la part des pilotes.</p>
+            <div class="stage_calendar">
+                <img
+                    src="https://img5.autodeclics.com/12/2024/01/photo_article/123471/58490/1200-L-rallye-de-monte-carlo-thierry-neuville-assomme-sbastien-ogier-le-classement-de-la-spciale-15.jpg"
+                    alt="Logo Stage Monte-Carlo" class="image_M">
+                <p class="stage_info"><strong>Rallye Monte-Carlo </strong><br>
+                    Date : 25 - 28 Janvier <br> Le Rallye
+                    Monte-Carlo est l'une
+                    des épreuves les plus emblématiques du Championnat du Monde
+                    des Rallyes de la FIA. Organisé depuis 1911,
+                    ce rallye hivernal se déroule principalement dans les Alpes
+                    françaises et monégasques. Réputé pour ses
+                    conditions météorologiques imprévisibles et ses routes
+                    sinueuses, le Rallye Monte-Carlo est une épreuve
+                    de renom, exigeant habileté et stratégie de la part des
+                    pilotes.</p>
+            </div>
+            <div class="separator_class2"></div>
+            <div class="stage_calendar">
+                <img
+                    src="https://www.rallye-sport.fr/wp-content/uploads/2015/07/Tanak-Suede-2023-5-1536x1025.jpeg"
+                    alt="Logo Stage Suède" class="image_M">
+                <p class="stage_info"><strong>Rallye de Suède </strong><br> Date
+                    : 15 - 18 Février <br> Le Rallye de Suède,
+                    faisant partie du
+                    Championnat du Monde des Rallyes, se déroule dans les forêts
+                    enneigées et sur les routes gelées de la
+                    Scandinavie. C'est le seul rallye entièrement disputé sur la
+                    neige, offrant des conditions uniques aux
+                    pilotes. Réputé pour ses sauts spectaculaires et ses pistes
+                    glacées rapides, le Rallye de Suède est un
+                    défi technique et exaltant, attirant les amateurs de rallye
+                    du monde entier.</p>
+            </div>
+            <div class="separator_class2"></div>
+            <div class="stage_calendar">
+                <img
+                    src="https://th.bing.com/th/id/OIP.zcZ0RWB8B7khEa6ZMsw2-gHaEo?w=290&h=181&c=7&r=0&o=5&pid=1.7"
+                    alt="Logo Stage Safari Rally" class="image_M">
+                <p class="stage_info"><strong>Safari Rally (Kenya)</strong> <br>
+                    Date : 28 - 31 Mars <br>
+                    Le Safari Rally, au Kenya, est renommé pour son tracé
+                    traversant savanes, forêts et plaines arides,
+                    ajoutant des défis uniques aux pilotes du Championnat du
+                    Monde des Rallyes. Les conditions exigeantes
+                    font de cette épreuve un rendez-vous incontournable, réputé
+                    pour sa difficulté technique.</p>
+            </div>
+            <div class="separator_class2"></div>
+            <div class="stage_calendar">
+                <img
+                    src="https://th.bing.com/th/id/OIP.noCVpMkdR0lDlq76J3nOIwHaE7?w=270&h=180&c=7&r=0&o=5&pid=1.7"
+                    alt="Logo Stage Rallye de Croatie" class="image_M">
+                <p class="stage_info"><strong>Rallye de Croatie</strong> <br>
+                    Date : 18 - 23 Avril <br> Le Rallye de
+                    Croatie, intégré au
+                    Championnat du Monde des Rallyes, se déroule sur des routes
+                    sinueuses et variées à travers le pays.
+                    Apparu en 2021, cet événement propose un parcours exigeant,
+                    alliant des tracés de montagne et des routes
+                    rapides, ajoutant une dimension captivante au calendrier du
+                    WRC.</p>
+            </div>
+            <div class="separator_class2"></div>
+            <div class="stage_calendar">
+                <img
+                    src="https://th.bing.com/th/id/OIP.1JOo4JIM5Xu_dqKx-BXWLwHaE8?w=284&h=189&c=7&r=0&o=5&pid=1.7"
+                    alt="Logo Stage Rallye du Portugal" class="image_M">
+                <p class="stage_info"><strong>Rallye du Portugal </strong><br>
+                    Date : 9 - 12 Mai <br>Le Rallye du Portugal,
+                    inscrit au
+                    Championnat du Monde des Rallyes, offre un tracé diversifié
+                    à travers des paysages portugais
+                    emblématiques. Réputé pour ses chemins de terre techniques
+                    et ses portions rapides, cet événement
+                    traditionnel représente un défi stimulant pour les pilotes,
+                    ajoutant une dimension passionnante au
+                    calendrier du WRC. </p>
+            </div>
+            <div class="separator_class2"></div>
+            <div class="stage_calendar">
+                <img
+                    src="https://th.bing.com/th/id/OIP.9MeXEgvdnJ5cpJpGvMnXJAHaE8?w=270&h=180&c=7&r=0&o=5&pid=1.7"
+                    alt="Logo Stage Rallye de Sardaigne" class="image_M">
+                <p class="stage_info"><strong>Rallye de Sardaigne </strong><br>
+                    Date : 30 Mai - 2 Juin <br>
+                    Le Rallye de Sardaigne, faisant partie du Championnat du
+                    Monde des Rallyes, se déroule sur les routes
+                    côtières et rocailleuses de l'île italienne. Célèbre pour
+                    ses chemins accidentés et son terrain escarpé,
+                    cet événement offre un défi technique unique aux pilotes du
+                    WRC, ajoutant une intensité caractéristique
+                    au calendrier de la compétition.</p>
+            </div>
+            <div class="separator_class2"></div>
+            <div class="stage_calendar">
+                <img
+                    src="https://th.bing.com/th/id/OIP.Dzy4-I2OSOPuyfEwlM8eYwHaE8?w=257&h=180&c=7&r=0&o=5&pid=1.7"
+                    alt="Logo Stage Rallye de Pologne" class="image_M">
+                <p class="stage_info"><strong>Rallye de Pologne </strong><br>
+                    Date : 27 - 30 Juin <br> Le Rallye de Pologne,
+                    intégré au
+                    Championnat du Monde des Rallyes, présente un parcours
+                    rapide et technique à travers les forêts et les
+                    pistes polonaises. Réputé pour ses chemins sinueux et ses
+                    sauts spectaculaires, cet événement offre un
+                    spectacle palpitant aux fans et constitue un défi redouté
+                    pour les pilotes du WRC.</p>
+            </div>
+            <div class="separator_class2"></div>
+            <div class="stage_calendar">
+                <img
+                    src="https://www.rallye-sport.fr/wp-content/uploads/2017/10/Gryazin-Lettonie-2017.jpg"
+                    alt="Logo Stage Rallye de Lettonie" class="image_M">
+                <p class="stage_info"><strong>Rallye de Lettonie</strong> <br>
+                    Date : 18 - 21 Juillet <br> À ma
+                    connaissance, en janvier
+                    2022, il n'y a pas eu d'événement du Championnat du Monde
+                    des Rallyes en Lettonie. Si le Rallye de
+                    Lettonie est devenu une épreuve du WRC après cette date, je
+                    vous recommande de vérifier les sources
+                    d'actualités récentes ou les sites officiels du WRC pour
+                    obtenir des informations à jour sur cet
+                    événement spécifique.</p>
+            </div>
+            <div class="separator_class2"></div>
+            <div class="stage_calendar">
+                <img
+                    src="https://th.bing.com/th/id/R.0200a50869ce7047002d9dbf6217f9e6?rik=hBK6N0usc533Fg&pid=ImgRaw&r=0"
+                    alt="Logo Stage Rallye de Finlande" class="image_M">
+                <p class="stage_info"><strong>Rallye de Finlande </strong><br>
+                    Date : 1 - 4 Août <br>
+                    Le Rallye de Finlande, inscrit au Championnat du Monde des
+                    Rallyes, se distingue par ses pistes rapides
+                    et ses sauts emblématiques. Traversant les forêts
+                    finlandaises, l'événement est réputé pour ses virages
+                    rapides et ses routes techniques, offrant un spectacle
+                    électrisant aux fans et représentant l'un des
+                    moments forts du calendrier du WRC. </p>
+            </div>
+            <div class="separator_class2"></div>
+            <div class="stage_calendar">
+                <img
+                    src="https://th.bing.com/th/id/R.e59b379835059dee30591faae735a7b4?rik=XywgSGmQoxDmhg&pid=ImgRaw&r=0"
+                    alt="Logo Stage Rallye de l'acropole" class="image_M">
+                <p class="stage_info"><strong>Rallye de l'Acropole
+                        (Grèce)</strong> <br> Date : 5 - 8 Septembre <br>Le
+                    Rallye de l'Acropole,
+                    historique épreuve du Championnat du Monde des Rallyes, se
+                    déroule en Grèce sur des routes rocailleuses
+                    et montagneuses. Célèbre pour son terrain exigeant, ses
+                    températures élevées et ses spéciales
+                    difficiles, cet événement emblématique représente un défi
+                    redoutable pour les pilotes, ajoutant une
+                    dimension unique et exaltante au calendrier du WRC. </p>
+            </div>
+            <div class="separator_class2"></div>
+            <div class="stage_calendar">
+                <img
+                    src="data:image/jpeg;base64,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"
+                    alt="Logo Stage Rallye du Chili" class="image_M">
+                <p class="stage_info"><strong>Rallye du Chili </strong><br> Date
+                    : 26 - 29 Septembre <br> Le Rallye du
+                    Chili, inscrit au
+                    Championnat du Monde des Rallyes, offre un tracé diversifié
+                    à travers les paysages chiliens, allant des
+                    routes côtières aux terrains montagneux. Réputé pour ses
+                    virages techniques et ses spéciales variées,
+                    cet événement sud-américain apporte une dimension captivante
+                    au calendrier du WRC, attirant les pilotes
+                    par son défi unique et offrant un spectacle palpitant aux
+                    fans.</p>
+            </div>
+            <div class="separator_class2"></div>
+            <div class="stage_calendar">
+                <img
+                    src="https://www.therallyfactory.com/wp-content/uploads/2022/04/WRC-Rally-Kroatie-Rovanpera-wint-ondanks-late-stortbui.jpg"
+                    alt="Logo Stage Rallye d'europe centrale" class="image_M">
+                <p class="stage_info"><strong>Rallye d'Europe centrale
+                    </strong><br> Date : 31 Octobre - 3 Novembre <br>Le
+                    Rallye d'Europe
+                    Centrale, ajout récent au Championnat du Monde des Rallyes à
+                    partir de F2023, se déroule sur des routes
+                    asphalte en Allemagne, Autriche et Tchéquie. Basé à Passau
+                    en Bavière, Allemagne, ce rallye novateur
+                    propose un parcours unique, reliant plusieurs pays, avec des
+                    antécédents revendiqués du rallye
+                    3-Stadte-Rally des années 1960 dans la même région.</p>
+            </div>
+            <div class="separator_class2"></div>
+            <div class="stage_calendar">
+                <img
+                    src="https://lemagsportauto.ouest-france.fr/wp-content/uploads/2022/11/WRC-Sebastien-Ogier-premier-leader-du-Rallye-du-Japon..jpg"
+                    alt="Logo Stage Rallye du Japon" class="image_M">
+                <p class="stage_info"><strong>Rallye du Japon </strong><br> Date
+                    : 21 - 24 Novembre <br>Le Rallye du Japon,
+                    inscrit au
+                    calendrier du Championnat du Monde des Rallyes 2024, promet
+                    une aventure palpitante à travers les
+                    paysages diversifiés de l'île principale du Japon, Honshu.
+                    Cet
+                    événement emblématique a évolué pour offrir des spéciales
+                    sur asphalte, ajoutant une nouvelle dimension
+                    au défi des pilotes. Les routes sinueuses, bordées de fossés
+                    et enveloppées de
+                    brouillard, promettent un spectacle captivant et renforcent
+                    la réputation du Rallye du Japon.</p>
+            </div>
         </div>
-        <div class="separator_class2"></div>
-        <div class="stage_calendar">
-            <img src="https://www.rallye-sport.fr/wp-content/uploads/2015/07/Tanak-Suede-2023-5-1536x1025.jpeg"
-                alt="Logo Stage Suède" class="image_M">
-            <p class="stage_info"><strong>Rallye de Suède </strong><br> Date : 15 - 18 Février <br> Le Rallye de Suède,
-                faisant partie du
-                Championnat du Monde des Rallyes, se déroule dans les forêts enneigées et sur les routes gelées de la
-                Scandinavie. C'est le seul rallye entièrement disputé sur la neige, offrant des conditions uniques aux
-                pilotes. Réputé pour ses sauts spectaculaires et ses pistes glacées rapides, le Rallye de Suède est un
-                défi technique et exaltant, attirant les amateurs de rallye du monde entier.</p>
-        </div>
-        <div class="separator_class2"></div>
-        <div class="stage_calendar">
-            <img src="https://th.bing.com/th/id/OIP.zcZ0RWB8B7khEa6ZMsw2-gHaEo?w=290&h=181&c=7&r=0&o=5&pid=1.7"
-                alt="Logo Stage Safari Rally" class="image_M">
-            <p class="stage_info"><strong>Safari Rally (Kenya)</strong> <br> Date : 28 - 31 Mars <br>
-                Le Safari Rally, au Kenya, est renommé pour son tracé traversant savanes, forêts et plaines arides,
-                ajoutant des défis uniques aux pilotes du Championnat du Monde des Rallyes. Les conditions exigeantes
-                font de cette épreuve un rendez-vous incontournable, réputé pour sa difficulté technique.</p>
-        </div>
-        <div class="separator_class2"></div>
-        <div class="stage_calendar">
-            <img src="https://th.bing.com/th/id/OIP.noCVpMkdR0lDlq76J3nOIwHaE7?w=270&h=180&c=7&r=0&o=5&pid=1.7"
-                alt="Logo Stage Rallye de Croatie" class="image_M">
-            <p class="stage_info"><strong>Rallye de Croatie</strong> <br> Date : 18 - 23 Avril <br> Le Rallye de
-                Croatie, intégré au
-                Championnat du Monde des Rallyes, se déroule sur des routes sinueuses et variées à travers le pays.
-                Apparu en 2021, cet événement propose un parcours exigeant, alliant des tracés de montagne et des routes
-                rapides, ajoutant une dimension captivante au calendrier du WRC.</p>
-        </div>
-        <div class="separator_class2"></div>
-        <div class="stage_calendar">
-            <img src="https://th.bing.com/th/id/OIP.1JOo4JIM5Xu_dqKx-BXWLwHaE8?w=284&h=189&c=7&r=0&o=5&pid=1.7"
-                alt="Logo Stage Rallye du Portugal" class="image_M">
-            <p class="stage_info"><strong>Rallye du Portugal </strong><br> Date : 9 - 12 Mai <br>Le Rallye du Portugal,
-                inscrit au
-                Championnat du Monde des Rallyes, offre un tracé diversifié à travers des paysages portugais
-                emblématiques. Réputé pour ses chemins de terre techniques et ses portions rapides, cet événement
-                traditionnel représente un défi stimulant pour les pilotes, ajoutant une dimension passionnante au
-                calendrier du WRC. </p>
-        </div>
-        <div class="separator_class2"></div>
-        <div class="stage_calendar">
-            <img src="https://th.bing.com/th/id/OIP.9MeXEgvdnJ5cpJpGvMnXJAHaE8?w=270&h=180&c=7&r=0&o=5&pid=1.7"
-                alt="Logo Stage Rallye de Sardaigne" class="image_M">
-            <p class="stage_info"><strong>Rallye de Sardaigne </strong><br> Date : 30 Mai - 2 Juin <br>
-                Le Rallye de Sardaigne, faisant partie du Championnat du Monde des Rallyes, se déroule sur les routes
-                côtières et rocailleuses de l'île italienne. Célèbre pour ses chemins accidentés et son terrain escarpé,
-                cet événement offre un défi technique unique aux pilotes du WRC, ajoutant une intensité caractéristique
-                au calendrier de la compétition.</p>
-        </div>
-        <div class="separator_class2"></div>
-        <div class="stage_calendar">
-            <img src="https://th.bing.com/th/id/OIP.Dzy4-I2OSOPuyfEwlM8eYwHaE8?w=257&h=180&c=7&r=0&o=5&pid=1.7"
-                alt="Logo Stage Rallye de Pologne" class="image_M">
-            <p class="stage_info"><strong>Rallye de Pologne </strong><br> Date : 27 - 30 Juin <br> Le Rallye de Pologne,
-                intégré au
-                Championnat du Monde des Rallyes, présente un parcours rapide et technique à travers les forêts et les
-                pistes polonaises. Réputé pour ses chemins sinueux et ses sauts spectaculaires, cet événement offre un
-                spectacle palpitant aux fans et constitue un défi redouté pour les pilotes du WRC.</p>
-        </div>
-        <div class="separator_class2"></div>
-        <div class="stage_calendar">
-            <img src="https://www.rallye-sport.fr/wp-content/uploads/2017/10/Gryazin-Lettonie-2017.jpg"
-                alt="Logo Stage Rallye de Lettonie" class="image_M">
-            <p class="stage_info"><strong>Rallye de Lettonie</strong> <br> Date : 18 - 21 Juillet <br> À ma
-                connaissance, en janvier
-                2022, il n'y a pas eu d'événement du Championnat du Monde des Rallyes en Lettonie. Si le Rallye de
-                Lettonie est devenu une épreuve du WRC après cette date, je vous recommande de vérifier les sources
-                d'actualités récentes ou les sites officiels du WRC pour obtenir des informations à jour sur cet
-                événement spécifique.</p>
-        </div>
-        <div class="separator_class2"></div>
-        <div class="stage_calendar">
-            <img src="https://th.bing.com/th/id/R.0200a50869ce7047002d9dbf6217f9e6?rik=hBK6N0usc533Fg&pid=ImgRaw&r=0"
-                alt="Logo Stage Rallye de Finlande" class="image_M">
-            <p class="stage_info"><strong>Rallye de Finlande </strong><br> Date : 1 - 4 Août <br>
-                Le Rallye de Finlande, inscrit au Championnat du Monde des Rallyes, se distingue par ses pistes rapides
-                et ses sauts emblématiques. Traversant les forêts finlandaises, l'événement est réputé pour ses virages
-                rapides et ses routes techniques, offrant un spectacle électrisant aux fans et représentant l'un des
-                moments forts du calendrier du WRC. </p>
-        </div>
-        <div class="separator_class2"></div>
-        <div class="stage_calendar">
-            <img src="https://th.bing.com/th/id/R.e59b379835059dee30591faae735a7b4?rik=XywgSGmQoxDmhg&pid=ImgRaw&r=0"
-                alt="Logo Stage Rallye de l'acropole" class="image_M">
-            <p class="stage_info"><strong>Rallye de l'Acropole (Grèce)</strong> <br> Date : 5 - 8 Septembre <br>Le
-                Rallye de l'Acropole,
-                historique épreuve du Championnat du Monde des Rallyes, se déroule en Grèce sur des routes rocailleuses
-                et montagneuses. Célèbre pour son terrain exigeant, ses températures élevées et ses spéciales
-                difficiles, cet événement emblématique représente un défi redoutable pour les pilotes, ajoutant une
-                dimension unique et exaltante au calendrier du WRC. </p>
-        </div>
-        <div class="separator_class2"></div>
-        <div class="stage_calendar">
-            <img src="https://th.bing.com/th/id/R.821c28f9fbb88172a35ee7c963e14e80?rik=nMBqO5eWnvJlMA&riu=http%3a%2f%2fsport24.lefigaro.fr%2fvar%2fplain_site%2fstorage%2fimages%2fauto-moto%2frallye%2factualites%2frallye-du-chili-taenak-en-promenade-neuville-en-tonneaux-956977%2f25790708-1-fre-FR%2fRallye-du-Chili-Taenak-en-promenade-Neuville-en-tonneaux.jpg&ehk=2PLazap1g2Br%2bquFqoo%2bo%2bptOqKsZmMXsX6Buv1c4No%3d&risl=&pid=ImgRaw&r=0"
-                alt="Logo Stage Rallye du Chili" class="image_M">
-            <p class="stage_info"><strong>Rallye du Chili </strong><br> Date : 26 - 29 Septembre <br> Le Rallye du
-                Chili, inscrit au
-                Championnat du Monde des Rallyes, offre un tracé diversifié à travers les paysages chiliens, allant des
-                routes côtières aux terrains montagneux. Réputé pour ses virages techniques et ses spéciales variées,
-                cet événement sud-américain apporte une dimension captivante au calendrier du WRC, attirant les pilotes
-                par son défi unique et offrant un spectacle palpitant aux fans.</p>
-        </div>
-        <div class="separator_class2"></div>
-        <div class="stage_calendar">
-            <img src="https://www.therallyfactory.com/wp-content/uploads/2022/04/WRC-Rally-Kroatie-Rovanpera-wint-ondanks-late-stortbui.jpg"
-                alt="Logo Stage Rallye d'europe centrale" class="image_M">
-            <p class="stage_info"><strong>Rallye d'Europe centrale </strong><br> Date : 31 Octobre - 3 Novembre <br>Le
-                Rallye d'Europe
-                Centrale, ajout récent au Championnat du Monde des Rallyes à partir de F2023, se déroule sur des routes
-                asphalte en Allemagne, Autriche et Tchéquie. Basé à Passau en Bavière, Allemagne, ce rallye novateur
-                propose un parcours unique, reliant plusieurs pays, avec des antécédents revendiqués du rallye
-                3-Stadte-Rally des années 1960 dans la même région.</p>
-        </div>
-        <div class="separator_class2"></div>
-        <div class="stage_calendar">
-            <img src="https://lemagsportauto.ouest-france.fr/wp-content/uploads/2022/11/WRC-Sebastien-Ogier-premier-leader-du-Rallye-du-Japon..jpg"
-                alt="Logo Stage Rallye du Japon" class="image_M">
-            <p class="stage_info"><strong>Rallye du Japon </strong><br> Date : 21 - 24 Novembre <br>Le Rallye du Japon,
-                inscrit au
-                calendrier du Championnat du Monde des Rallyes 2024, promet une aventure palpitante à travers les
-                paysages diversifiés de l'île principale du Japon, Honshu. Cet
-                événement emblématique a évolué pour offrir des spéciales sur asphalte, ajoutant une nouvelle dimension
-                au défi des pilotes. Les routes sinueuses, bordées de fossés et enveloppées de
-                brouillard, promettent un spectacle captivant et renforcent la réputation du Rallye du Japon.</p>
-        </div>
-    </div>
-</body>
-<footer>
-    <div class="footer_text">Tellier Néo - 2023 - Projet E</div>
-</footer>
-<script src="/assets/script/main.js"></script>
+    </body>
+    <footer>
+        <div class="footer_text">Tellier Néo - 2023 - Projet E</div>
+    </footer>
+    <script src="/assets/script/main.js"></script>
 
 </html>
