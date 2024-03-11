@@ -17,7 +17,7 @@ async function getUserInfo() {
     // Vérifie la présence du userUUID dans les cookies
     if (userUUID) {
         try {
-            const response = await fetch('http://172.28.183.241:3000/get_userinfo', {
+            const response = await fetch('http://192.168.64.242:3000/get_userinfo', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
