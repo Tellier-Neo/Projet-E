@@ -48,7 +48,7 @@
             if (userUUID) {
                 try {
                     // Envoie une requête vers /disconnect avec le userUUID
-                    const response = await fetch('http://172.28.183.241:3000/disconnect', {
+                    const response = await fetch('http://192.168.64.242:3000/disconnect', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -82,85 +82,7 @@
                 déconnecter</button>
         </div>
 
-        <div id="carousel-container">
-            <div class="carousel-slide">
-                <img src="/assets/images/rallyemoderne.png" alt="Slide 1">
-                <div class="carousel-content">
-                    <h2>L'univers du Rallye Moderne:</h2>
-                    <p>L'univers du rallye moderne s'érige comme un spectacle
-                        captivant qui allie la maîtrise technique, la bravoure
-                        des pilotes, et la puissance des bolides. À travers des
-                        compétitions mondiales, ce sport automobile pousse les
-                        limites de l'endurance humaine et mécanique. Des courses
-                        effrénées sur des terrains diversifiés révèlent
-                        l'essence même du rallye moderne, où la stratégie et la
-                        performance convergent pour créer des moments
-                        inoubliables.</p>
-                </div>
-            </div>
-            <div class="carousel-slide">
-                <img src="/assets/images/rallyetechno.png" alt="Slide 2">
-                <div class="carousel-content">
-                    <h2>Technologie de Pointe</h2>
-                    <p>La technologie de pointe redéfinit le paysage du rallye
-                        moderne, plaçant des machines sophistiquées entre les
-                        mains de pilotes aguerris. Des systèmes de transmission
-                        intelligents aux matériaux ultralégers, chaque composant
-                        est minutieusement conçu pour optimiser la performance.
-                        Le rallye moderne devient ainsi le terrain d'essai
-                        ultime où l'innovation automobile émerge et influence le
-                        développement des véhicules de tous les jours.</p>
-                </div>
-            </div>
-            <div class="carousel-slide">
-                <img src="/assets/images/rallyepilote.png" alt="Slide 3">
-                <div class="carousel-content">
-                    <h2>Les Pilotes Émérites</h2>
-                    <p>Les pilotes émérites du rallye moderne ne sont pas
-                        simplement des conducteurs, mais des artistes de la
-                        course, fusionnant habileté technique et audace. Leurs
-                        compétences exceptionnelles transforment chaque virage,
-                        chaque saut en une expression de maîtrise absolue. Ce
-                        sont des héros de l'asphalte, chevauchant des machines
-                        puissantes avec une synchronisation parfaite, défiant la
-                        gravité à chaque instant.</p>
-                </div>
-            </div>
-            <div class="carousel-slide">
-                <img src="/assets/images/rallyecircuit.png" alt="Slide 4">
-                <div class="carousel-content">
-                    <h2>Circuits Épiques</h2>
-                    <p>Les circuits épiques du rallye moderne invitent les
-                        compétiteurs à affronter des défis variés, des routes de
-                        montagne sinueuses aux pistes poussiéreuses. Chaque
-                        emplacement devient un chapitre dans l'histoire de la
-                        course, mettant en lumière des paysages spectaculaires
-                        et des conditions météorologiques changeantes. Ces
-                        circuits emblématiques sont le théâtre où se déroulent
-                        les duels épiques entre hommes et machines.</p>
-                </div>
-            </div>
-            <div class="carousel-slide">
-                <img src="/assets/images/rallyefan.png" alt="Slide 5">
-                <div class="carousel-content">
-                    <h2>Passion des Fans</h2>
-                    <p>La passion des fans constitue le cœur battant du rallye
-                        moderne. Des tribunes bondées aux zones spectateurs en
-                        pleine nature, l'enthousiasme des supporters crée une
-                        ambiance électrique. Ces aficionados dévoués contribuent
-                        à l'énergie unique qui entoure chaque événement, faisant
-                        du rallye moderne bien plus qu'un simple sport, mais une
-                        expérience collective inégalée.</p>
-                </div>
-            </div>
-
-            <div class="carousel-navigation">
-                <button class="carousel-btn" onclick="prevSlide()">Slide
-                    précédente</button>
-                <button class="carousel-btn" onclick="nextSlide()">Slide
-                    suivante</button>
-            </div>
-        </div>
+        
 
         <script>
         let currentSlide = 0;
