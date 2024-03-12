@@ -90,113 +90,136 @@
 
 
 
-        <div id="carContainer" class="car-container"></div>
+            <div id="carContainer" class="car-container"></div>
 
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-        <script>
-            // Effectuer la requête GET vers le serveur pour obtenir les informations des voitures
-            axios.get('http://192.168.64.242:3000/cars')
-                .then(response => {
-                    const carData = response.data;
-                    const carContainer = document.getElementById('carContainer');
-
-                    // Parcourir les données et créer des conteneurs de données pour chaque voiture
-                    carData.forEach(car => {
-                        const carCard = document.createElement('div');
-                        carCard.className = 'car-card';
-
-                        // Ajouter le modèle comme titre
-                        const carTitle = document.createElement('h2');
-                        carTitle.textContent = car.Modele;
-
-                        // Ajouter la marque comme sous-titre
-                        const carSubtitle = document.createElement('h3');
-                        carSubtitle.textContent = car.Marque;
-
-                        // Ajouter la description comme texte
-                        const carDescription = document.createElement('p');
-                        carDescription.textContent = car.Description;
-
-                        // Ajouter la puissance avec "cv" comme texte
-                        const carPower = document.createElement('p');
-                        carPower.textContent = `${car.Puissance} cv`;
-
-                        // Ajouter l'image avec le LienImage comme source
-                        const carImage = document.createElement('img');
-                        carImage.src = car.LienImage;
-                        carImage.alt = `${car.Marque} ${car.Modele}`;
-                        carImage.className = 'car-image';
-
-                        // Ajouter tous les éléments au conteneur de la voiture
-                        carCard.appendChild(carTitle);
-                        carCard.appendChild(carSubtitle);
-                        carCard.appendChild(carDescription);
-                        carCard.appendChild(carPower);
-                        carCard.appendChild(carImage);
-
-                        // Ajouter le conteneur de la voiture au conteneur principal
-                        carContainer.appendChild(carCard);
-                    });
-                })
-                .catch(error => {
-                    console.error('Erreur lors de la récupération des données:', error);
-                });
-        </script>
-        <div id="carContainer"></div>
-
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-        <script>
-            document.getElementById('searchForm').addEventListener('submit', function (event) {
-                event.preventDefault();
-
-                const modelInput = document.getElementById('modelInput').value;
-
-                // Effectuer la requête POST vers le serveur pour obtenir les informations des voitures
-                axios.post('http://192.168.64.242:3000/getbymodel', { model: modelInput })
+            <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+            <script>
+                // Effectuer la requête GET vers le serveur pour obtenir les informations des voitures
+                axios.get('http://192.168.64.242:3000/cars')
                     .then(response => {
                         const carData = response.data;
                         const carContainer = document.getElementById('carContainer');
-
-                        // Effacer le contenu précédent
-                        carContainer.innerHTML = '';
-
+            
+                        // Mélanger les données de manière aléatoire
+                        const shuffledCars = shuffleArray(carData);
+            
+                        // Prendre seulement les 10 premières voitures
+                        const firstTenCars = shuffledCars.slice(0, 10);
+            
                         // Parcourir les données et créer des conteneurs de données pour chaque voiture
-                        carData.forEach(car => {
+                        firstTenCars.forEach(car => {
                             const carCard = document.createElement('div');
                             carCard.className = 'car-card';
-
+            
                             // Ajouter le modèle comme titre
                             const carTitle = document.createElement('h2');
                             carTitle.textContent = car.Modele;
-
+            
                             // Ajouter la marque comme sous-titre
                             const carSubtitle = document.createElement('h3');
                             carSubtitle.textContent = car.Marque;
-
+            
                             // Ajouter la description comme texte
                             const carDescription = document.createElement('p');
                             carDescription.textContent = car.Description;
-
+            
                             // Ajouter la puissance avec "cv" comme texte
                             const carPower = document.createElement('p');
-                            carPower.textContent = `${car.Puissance} cv`;
-
+                            carPower.textContent = `Puissance : ${car.Puissance} cv`;
+            
                             // Ajouter l'image avec le LienImage comme source
                             const carImage = document.createElement('img');
                             carImage.src = car.LienImage;
                             carImage.alt = `${car.Marque} ${car.Modele}`;
                             carImage.className = 'car-image';
-
+            
                             // Ajouter tous les éléments au conteneur de la voiture
                             carCard.appendChild(carTitle);
                             carCard.appendChild(carSubtitle);
                             carCard.appendChild(carDescription);
                             carCard.appendChild(carPower);
                             carCard.appendChild(carImage);
-
+            
                             // Ajouter le conteneur de la voiture au conteneur principal
                             carContainer.appendChild(carCard);
                         });
+                    })
+                    .catch(error => {
+                        console.error('Erreur lors de la récupération des données:', error);
+                    });
+            
+                // Fonction pour mélanger un tableau de manière aléatoire
+                function shuffleArray(array) {
+                    for (let i = array.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [array[i], array[j]] = [array[j], array[i]];
+                    }
+                    return array;
+                }
+            </script>
+        <div id="carContainer"></div>
+
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script>
+            document.getElementById('searchForm').addEventListener('submit', function (event) {
+                event.preventDefault();
+        
+                const modelInput = document.getElementById('modelInput').value;
+        
+                // Effectuer la requête POST vers le serveur pour obtenir les informations des voitures
+                axios.post('http://192.168.64.242:3000/getbymodel', { model: modelInput })
+                    .then(response => {
+                        const carData = response.data;
+                        const carContainer = document.getElementById('carContainer');
+        
+                        // Effacer le contenu précédent
+                        carContainer.innerHTML = '';
+        
+                        // Vérifier s'il y a des résultats
+                        if (carData.length === 0) {
+                            // Afficher un message "Pas de résultat"
+                            const noResultMessage = document.createElement('p');
+                            noResultMessage.textContent = 'Pas de résultat';
+                            carContainer.appendChild(noResultMessage);
+                        } else {
+                            // Parcourir les données et créer des conteneurs de données pour chaque voiture
+                            carData.forEach(car => {
+                                const carCard = document.createElement('div');
+                                carCard.className = 'car-card';
+        
+                                // Ajouter le modèle comme titre
+                                const carTitle = document.createElement('h2');
+                                carTitle.textContent = car.Modele;
+        
+                                // Ajouter la marque comme sous-titre
+                                const carSubtitle = document.createElement('h3');
+                                carSubtitle.textContent = car.Marque;
+        
+                                // Ajouter la description comme texte
+                                const carDescription = document.createElement('p');
+                                carDescription.textContent = car.Description;
+        
+                                // Ajouter la puissance avec "cv" comme texte
+                                const carPower = document.createElement('p');
+                                carPower.textContent = `${car.Puissance} cv`;
+        
+                                // Ajouter l'image avec le LienImage comme source
+                                const carImage = document.createElement('img');
+                                carImage.src = car.LienImage;
+                                carImage.alt = `${car.Marque} ${car.Modele}`;
+                                carImage.className = 'car-image';
+        
+                                // Ajouter tous les éléments au conteneur de la voiture
+                                carCard.appendChild(carTitle);
+                                carCard.appendChild(carSubtitle);
+                                carCard.appendChild(carDescription);
+                                carCard.appendChild(carPower);
+                                carCard.appendChild(carImage);
+        
+                                // Ajouter le conteneur de la voiture au conteneur principal
+                                carContainer.appendChild(carCard);
+                            });
+                        }
                     })
                     .catch(error => {
                         console.error('Erreur lors de la récupération des données:', error);
@@ -205,6 +228,7 @@
         </script>
 
     </div>
+    <div class=""></div>
 </body>
 <footer>
     <div class="footer_text">Tellier Néo - 2023 - Projet E</div>
