@@ -468,7 +468,7 @@
      background: rgb(240, 240, 240);
      width: 80%;
      height: fit-content;
-     margin-left: 10%;
+     margin-left: 11%;
      margin-right: 10%;
      display: flex;
      flex-direction: column;
@@ -480,4 +480,96 @@
      padding-left: 10px;
      padding-right: 10px;
      flex-wrap: wrap;
+}
+
+.car-image {
+    width: 50%;
+    height: 35%s;
+}
+.carContainer {
+    z-index: 0;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #131313;
+    border-bottom: 0;
+    border-top: 0;
+    background: rgb(240, 240, 240);
+    width: 80%;
+    height: fit-content;
+    margin-left: 10%;
+    margin-right: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: baseline;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2%;
+}
+.car-card {
+    border-radius: 0;
+    border-width: 2px;
+    border-color: #131313;
+    border-style: solid;
+    margin-bottom: 2px;
+}
+.car-card h2 {
+    margin: 2%;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin-bottom: 0%;
+}
+.car-card h3 {
+    margin-top: 0.5%;
+    margin-left: 2%;
+    margin-bottom: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.car-card p {
+    margin-left: 2%;
+    font-size: large;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+}
+
+.car-image {
+    margin-left: 2%;
+    margin-bottom: 2%;
+
+}
+
+#searchForm {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    flex-direction: row;
+    align-items: left;
+    max-width: fit-content;
+    margin-bottom: 2%;
+
+}
+
+#searchbutton {
+    border-radius: 0%;
+    border-color: #131313;
+    border-width: 2px;
+    border-style: outset;
+    transition: 500ms; 
+    
+}
+
+#searchbutton:hover {
+    background-color: #131313;
+    color: #f1f1f1;
+    cursor: pointer;
+    transition: 500ms;
+}
+
+.twintitle {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-direction: row;
+    max-width: 100%;
 }

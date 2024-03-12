@@ -40,11 +40,9 @@
     const passwordInput = document.getElementById('Password_input');
     const resultDiv = document.getElementById('resultRegister');
 
-    // Récupérer les valeurs des champs de saisie
     const username = usernameInput.value;
     const password = passwordInput.value;
 
-    // Nettoyer les champs de saisie
     usernameInput.value = '';
     passwordInput.value = '';
 
@@ -67,7 +65,6 @@
         const result = await response.json();
         console.log('Réponse du serveur:', result);
 
-        // Stocke le userUUID dans un cookie avec une durée de vie de 7 jours
         document.cookie = "ProjetE_unique_user_token=" + encodeURIComponent(result.userUUID) + "; max-age=" + (7 * 24 * 60 * 60);
 
         resultDiv.textContent = 'Connexion réussie!';
