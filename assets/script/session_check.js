@@ -48,6 +48,8 @@ function updateUI(username) {
     const registerButton = document.getElementById('registerButton');
     const userNameDiv = document.getElementById('userName');
     const unlogButton = document.getElementById('Unlog');
+    const memberpage = document.getElementById('memberpage');
+    const header_bar2 = document.getElementById('header_bar2')
 
     // Vérifie la présence du username
     if (username) {
@@ -59,6 +61,8 @@ function updateUI(username) {
         userNameDiv.textContent = "Connecté : " + username;
         userNameDiv.style.display = 'inline';
         unlogButton.style.display = 'inline';
+        memberpage.style.display = 'grid';
+        header_bar2.style.display ='block';
     } else {
         // Affiche les boutons de connexion et d'inscription
         logButton.style.display = 'inline';

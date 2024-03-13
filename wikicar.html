@@ -75,149 +75,152 @@
         </script>
         <button id="Unlog" style="display: none;" class="logRegDisButton" onclick="disconnectUser()">Se
             déconnecter</button>
+        <button id="AddCar" style="display: none;" class="addcarbutton" onclick="">
+            Ajouter une voiture
+        </button>
     </div>
-    
+
     <div class="body_type2">
-        
-            <form id="searchForm">
-                <input type="text" id="modelInput" name="model" placeholder="Entrez le modèle">
 
-                <button type="submit" id="searchbutton">Rechercher</button>
-                
-            </form>
-            
-       
+        <form id="searchForm">
+            <input type="text" id="modelInput" name="model" placeholder="Entrez le modèle">
+
+            <button type="submit" id="searchbutton">Rechercher</button>
+
+        </form>
 
 
 
-            <div id="carContainer" class="car-container"></div>
 
-            <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-            <script>
-                // Effectuer la requête GET vers le serveur pour obtenir les informations des voitures
-                axios.get('http://192.168.64.242:3000/cars')
-                    .then(response => {
-                        const carData = response.data;
-                        const carContainer = document.getElementById('carContainer');
-            
-                        // Mélanger les données de manière aléatoire
-                        const shuffledCars = shuffleArray(carData);
-            
-                        // Prendre seulement les 10 premières voitures
-                        const firstTenCars = shuffledCars.slice(0, 10);
-            
-                        // Parcourir les données et créer des conteneurs de données pour chaque voiture
-                        firstTenCars.forEach(car => {
-                            const carCard = document.createElement('div');
-                            carCard.className = 'car-card';
-            
-                            // Ajouter le modèle comme titre
-                            const carTitle = document.createElement('h2');
-                            carTitle.textContent = car.Modele;
-            
-                            // Ajouter la marque comme sous-titre
-                            const carSubtitle = document.createElement('h3');
-                            carSubtitle.textContent = car.Marque;
-            
-                            // Ajouter la description comme texte
-                            const carDescription = document.createElement('p');
-                            carDescription.textContent = car.Description;
-            
-                            // Ajouter la puissance avec "cv" comme texte
-                            const carPower = document.createElement('p');
-                            carPower.textContent = `Puissance : ${car.Puissance} cv`;
-            
-                            // Ajouter l'image avec le LienImage comme source
-                            const carImage = document.createElement('img');
-                            carImage.src = car.LienImage;
-                            carImage.alt = `${car.Marque} ${car.Modele}`;
-                            carImage.className = 'car-image';
-            
-                            // Ajouter tous les éléments au conteneur de la voiture
-                            carCard.appendChild(carTitle);
-                            carCard.appendChild(carSubtitle);
-                            carCard.appendChild(carDescription);
-                            carCard.appendChild(carPower);
-                            carCard.appendChild(carImage);
-            
-                            // Ajouter le conteneur de la voiture au conteneur principal
-                            carContainer.appendChild(carCard);
-                        });
-                    })
-                    .catch(error => {
-                        console.error('Erreur lors de la récupération des données:', error);
+
+        <div id="carContainer" class="car-container"></div>
+
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script>
+            // Effectuer la requête GET vers le serveur pour obtenir les informations des voitures
+            axios.get('http://192.168.64.242:3000/cars')
+                .then(response => {
+                    const carData = response.data;
+                    const carContainer = document.getElementById('carContainer');
+
+                    // Mélanger les données de manière aléatoire
+                    const shuffledCars = shuffleArray(carData);
+
+                    // Prendre seulement les 10 premières voitures
+                    const firstTenCars = shuffledCars.slice(0, 10);
+
+                    // Parcourir les données et créer des conteneurs de données pour chaque voiture
+                    firstTenCars.forEach(car => {
+                        const carCard = document.createElement('div');
+                        carCard.className = 'car-card';
+
+                        // Ajouter le modèle comme titre
+                        const carTitle = document.createElement('h2');
+                        carTitle.textContent = car.Modele;
+
+                        // Ajouter la marque comme sous-titre
+                        const carSubtitle = document.createElement('h3');
+                        carSubtitle.textContent = car.Marque;
+
+                        // Ajouter la description comme texte
+                        const carDescription = document.createElement('p');
+                        carDescription.textContent = car.Description;
+
+                        // Ajouter la puissance avec "cv" comme texte
+                        const carPower = document.createElement('p');
+                        carPower.textContent = `Puissance : ${car.Puissance} cv`;
+
+                        // Ajouter l'image avec le LienImage comme source
+                        const carImage = document.createElement('img');
+                        carImage.src = car.LienImage;
+                        carImage.alt = `${car.Marque} ${car.Modele}`;
+                        carImage.className = 'car-image';
+
+                        // Ajouter tous les éléments au conteneur de la voiture
+                        carCard.appendChild(carTitle);
+                        carCard.appendChild(carSubtitle);
+                        carCard.appendChild(carDescription);
+                        carCard.appendChild(carPower);
+                        carCard.appendChild(carImage);
+
+                        // Ajouter le conteneur de la voiture au conteneur principal
+                        carContainer.appendChild(carCard);
                     });
-            
-                // Fonction pour mélanger un tableau de manière aléatoire
-                function shuffleArray(array) {
-                    for (let i = array.length - 1; i > 0; i--) {
-                        const j = Math.floor(Math.random() * (i + 1));
-                        [array[i], array[j]] = [array[j], array[i]];
-                    }
-                    return array;
+                })
+                .catch(error => {
+                    console.error('Erreur lors de la récupération des données:', error);
+                });
+
+            // Fonction pour mélanger un tableau de manière aléatoire
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
                 }
-            </script>
+                return array;
+            }
+        </script>
         <div id="carContainer"></div>
 
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script>
             document.getElementById('searchForm').addEventListener('submit', function (event) {
                 event.preventDefault();
-        
+
                 const modelInput = document.getElementById('modelInput').value;
-        
+
                 // Effectuer la requête POST vers le serveur pour obtenir les informations des voitures
                 axios.post('http://192.168.64.242:3000/getbymodel', { model: modelInput })
                     .then(response => {
                         const carData = response.data;
                         const carContainer = document.getElementById('carContainer');
-        
+
                         // Effacer le contenu précédent
                         carContainer.innerHTML = '';
-        
+
                         // Vérifier s'il y a des résultats
                         if (carData.length === 0) {
                             // Afficher un message "Pas de résultat"
                             const noResultMessage = document.createElement('p');
                             noResultMessage.textContent = 'Pas de résultat';
                             carContainer.appendChild(noResultMessage);
-                        
+
                         }
-                         else {
+                        else {
                             // Parcourir les données et créer des conteneurs de données pour chaque voiture
                             carData.forEach(car => {
                                 const carCard = document.createElement('div');
                                 carCard.className = 'car-card';
-        
+
                                 // Ajouter le modèle comme titre
                                 const carTitle = document.createElement('h2');
                                 carTitle.textContent = car.Modele;
-        
+
                                 // Ajouter la marque comme sous-titre
                                 const carSubtitle = document.createElement('h3');
                                 carSubtitle.textContent = car.Marque;
-        
+
                                 // Ajouter la description comme texte
                                 const carDescription = document.createElement('p');
                                 carDescription.textContent = car.Description;
-        
+
                                 // Ajouter la puissance avec "cv" comme texte
                                 const carPower = document.createElement('p');
                                 carPower.textContent = `${car.Puissance} cv`;
-        
+
                                 // Ajouter l'image avec le LienImage comme source
                                 const carImage = document.createElement('img');
                                 carImage.src = car.LienImage;
                                 carImage.alt = `${car.Marque} ${car.Modele}`;
                                 carImage.className = 'car-image';
-        
+
                                 // Ajouter tous les éléments au conteneur de la voiture
                                 carCard.appendChild(carTitle);
                                 carCard.appendChild(carSubtitle);
                                 carCard.appendChild(carDescription);
                                 carCard.appendChild(carPower);
                                 carCard.appendChild(carImage);
-        
+
                                 // Ajouter le conteneur de la voiture au conteneur principal
                                 carContainer.appendChild(carCard);
                             });
@@ -230,7 +233,372 @@
         </script>
 
     </div>
-    <div class=""></div>
+
+    <div class="header_bar2" id="header_bar2" style="display: none;">
+        <h2>Section des membres du site</h2>
+    </div>
+    <div class="memberpage" id="memberpage" style="display: none;">
+        <div class="textchat_part">
+            <div id="chatMessages">
+                <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+                <script>
+                    function displayMessages(messages) {
+                        const chatMessagesContainer = document.getElementById('chatMessages');
+
+                        // Effacer le contenu précédent
+                        chatMessagesContainer.innerHTML = '';
+
+                        // Inverser l'ordre des messages
+                        for (let i = messages.length - 1; i >= 0; i--) {
+                            const message = messages[i];
+                            const messageContainer = document.createElement('div');
+                            messageContainer.className = 'message-container';
+
+                            // Ajouter le nom d'utilisateur comme titre
+                            const usernameTitle = document.createElement('h4');
+                            usernameTitle.textContent = `Utilisateur: ${message.username}`;
+
+                            // Ajouter le texte du message comme paragraphe
+                            const messageText = document.createElement('p');
+                            messageText.textContent = ` ${message.text}`;
+
+                            // Ajouter tous les éléments au conteneur du message
+                            messageContainer.appendChild(usernameTitle);
+                            messageContainer.appendChild(messageText);
+
+                            // Ajouter le conteneur du message à la boîte de dialogue
+                            chatMessagesContainer.appendChild(messageContainer);
+                        }
+                    }
+
+                    // Fonction pour effectuer la requête GET et mettre à jour les messages
+                    function updateMessages() {
+                        axios.get('http://192.168.64.242:3000/getlastmessages')
+                            .then(response => {
+                                const messagesData = response.data;
+
+                                // Appeler la fonction pour afficher les messages dans la boîte de dialogue
+                                displayMessages(messagesData);
+                            })
+                            .catch(error => {
+                                console.error('Erreur lors de la récupération des messages:', error);
+                            });
+                    }
+
+                    // Actualiser les messages toutes les 5 secondes (ajustez selon vos besoins)
+                    setInterval(updateMessages, 500);
+
+                    // Appeler la fonction initiale pour afficher les messages lors du chargement initial de la page
+                    updateMessages();
+                </script>
+            </div>
+
+            <div class="new-message">
+                <input type="text" id="userInput" placeholder="Tapez votre message...">
+                <div class="send-button" onclick="sendMessage()">Envoyer</div>
+            </div>
+            <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+            <script>
+                function sendMessage() {
+                    // Récupérer l'UUID de l'utilisateur depuis les cookies (assurez-vous d'avoir le bon nom de cookie)
+                    const userUUID = getCookie('ProjetE_unique_user_token');
+
+                    // Récupérer le texte du message depuis l'input
+                    const messageText = document.getElementById('userInput').value;
+
+                    // Vérifier si le texte du message est vide
+                    if (!messageText) {
+                        console.log('Veuillez entrer un message avant d\'envoyer.');
+                        return;
+                    }
+
+                    // Effectuer la requête POST vers la route /addmessage
+                    axios.post('http://192.168.64.242:3000/addmessage', {
+                        uuid: userUUID,
+                        text: messageText
+                    })
+                        .then(response => {
+                            // Réponse de succès, vous pouvez traiter la réponse ici si nécessaire
+                            console.log(response.data.message);
+
+                            // Effacer le champ de saisie après l'envoi du message
+                            document.getElementById('userInput').value = '';
+
+                            // Actualiser les messages (facultatif)
+                            // Vous pouvez appeler une fonction qui récupère et affiche les messages ici
+                        })
+                        .catch(error => {
+                            console.error('Erreur lors de l\'envoi du message:', error);
+                            alert('Erreur lors de l\'envoi du message. Veuillez réessayer.');
+                        });
+                }
+
+                // Fonction pour récupérer la valeur d'un cookie par son nom
+                function getCookie(name) {
+                    const value = `; ${document.cookie}`;
+                    const parts = value.split(`; ${name}=`);
+                    if (parts.length === 2) return parts.pop().split(';').shift();
+                }
+            </script>
+        </div>
+        <div class="addcar">
+            <h2>Ajouter une voiture</h2>
+            <form id="addCarForm">
+                <label for="Marque">Marque :</label>
+                <input type="text" id="Marque" name="Marque" maxlength="255" required>
+
+                <label for="Modele">Modèle :</label>
+                <input type="text" id="Modele" name="Modele" maxlength="255" required>
+
+                <label for="Puissance">Puissance (en CV) :</label>
+                <input type="text" id="Puissance" name="Puissance" pattern="[0-9]+" required>
+
+                <label for="Description">Description :</label>
+                <textarea id="Description" name="Description" maxlength="255" required></textarea>
+
+                <label for="LienImage">Lien de l'image :</label>
+                <input type="text" id="LienImage" name="LienImage" maxlength="255" required>
+
+                <button type="submit">Ajouter la voiture</button>
+            </form>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script>
+            document.getElementById('addCarForm').addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const uuid = getCookie('ProjetE_unique_user_token');
+                const formData = {
+                    uuid: uuid,
+                    Marque: document.getElementById('Marque').value,
+                    Modele: document.getElementById('Modele').value,
+                    Puissance: document.getElementById('Puissance').value,
+                    Description: document.getElementById('Description').value,
+                    LienImage: document.getElementById('LienImage').value
+                };
+
+                // Effectuer la requête POST vers la route pour ajouter une voiture
+                axios.post('http://192.168.64.242:3000/addcar', formData)
+                    .then(response => {
+                        // Traiter la réponse si nécessaire
+                        console.log(response.data);
+                    })
+                    .catch(error => {
+                        // Gérer les erreurs si nécessaire
+                        console.error('Erreur lors de l\'ajout de la voiture :', error);
+                    });
+            });
+
+            // Fonction pour récupérer la valeur d'un cookie par son nom
+            function getCookie(name) {
+                const value = `; ${document.cookie}`;
+                const parts = value.split(`; ${name}=`);
+                if (parts.length === 2) return parts.pop().split(';').shift();
+            }
+        </script>
+        <div class="profilepage">
+            <h1 id="username">Nom d'utilisateur</h1>
+            <label for="inputUsername">Nouveau nom d'utilisateur :</label>
+            <input type="text" id="inputUsername" placeholder="Entrez le nouveau nom d'utilisateur">
+
+            <p id="bio">Bio de l'utilisateur</p>
+            <label for="inputBio">Nouvelle bio :</label>
+            <textarea id="inputBio" placeholder="Entrez la nouvelle bio"></textarea>
+
+            <img id="profilePic"
+                src="https://th.bing.com/th/id/R.aece1145f2d3480e38bc9443a4998c04?rik=ey6pjfxR5wHPvQ&riu=http%3a%2f%2finstitutcommotions.com%2fwp-content%2fuploads%2f2018%2f05%2fblank-profile-picture-973460_960_720-1.png&ehk=cWQNlcoT06KT7deWxMnwK034GVCHVSXupbX4E5i1Psw%3d&risl=&pid=ImgRaw&r=0"
+                alt="Photo de profil"
+                style="max-width: 250px; max-height: 250px;">
+            <label for="inputProfilePic">Nouvelle URL de la photo de profil :</label>
+            <input type="text" id="inputProfilePic" placeholder="Entrez la nouvelle URL de la photo de profil">
+
+            <div id="favoriteCarContainer">
+                <p id="favoriteCar">Voiture favorite : NON DISPONIBLE</p>
+            </div>
+
+            <label for="inputFavoriteCar">Nouvelle voiture favorite :</label>
+            <input type="text" id="inputFavoriteCar" placeholder="Entrez la nouvelle voiture favorite">
+
+            <button onclick="updateProfile()">Mettre à jour le profil</button>
+        </div>
+
+        <script>
+            async function updateProfile() {
+                const uuid = getCookie('ProjetE_unique_user_token');
+                if (!uuid) {
+                    alert('Erreur : UUID manquant.');
+                    return;
+                }
+
+                const newUsername = document.getElementById('inputUsername').value;
+                const newBio = document.getElementById('inputBio').value;
+                const newProfilePic = document.getElementById('inputProfilePic').value;
+                const newFavoriteCar = document.getElementById('inputFavoriteCar').value;
+
+                const updateRequests = [];
+
+                if (newUsername) {
+                    updateRequests.push(fetchUpdateRequest('nameUpdate', uuid, newUsername));
+                }
+
+                if (newBio) {
+                    updateRequests.push(fetchUpdateRequest('BioUpdate', uuid, newBio));
+                }
+
+                if (newProfilePic) {
+                    updateRequests.push(fetchUpdateRequest('ProfilePicUpdate', uuid, newProfilePic));
+                }
+
+                if (newFavoriteCar) {
+                    updateRequests.push(fetchUpdateRequest('FavoriteCarUpdate', uuid, newFavoriteCar));
+                }
+
+                try {
+                    const updateResults = await Promise.all(updateRequests);
+
+                    updateResults.forEach(result => {
+                        if (!result.success) {
+                            alert(`Erreur lors de la mise à jour : ${result.message}`);
+                        }
+                    });
+
+                    // Recharge les informations du profil après la mise à jour
+                    await getProfileInfo();
+                } catch (error) {
+                    console.error('Erreur lors de la mise à jour du profil :', error);
+                    alert('Erreur lors de la mise à jour du profil.');
+                }
+            }
+
+            async function fetchUpdateRequest(endpoint, uuid, value) {
+                const response = await fetch(`http://192.168.64.242:3000/${endpoint}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ uuid, value }),
+                });
+
+                return response.json();
+            }
+
+            async function getProfileInfo() {
+                const uuid = getCookie('ProjetE_unique_user_token');
+                if (!uuid) {
+                    console.log("UUID manquant")
+                    return;
+                }
+
+                try {
+                    const response = await fetch(`http://192.168.64.242:3000/profile/${uuid}`, {
+                        method: 'GET',
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`Erreur de chargement du profil: ${response.status}`);
+                    }
+
+                    const profileInfo = await response.json();
+
+                    // Met à jour les champs de saisie et les titres avec les nouvelles informations
+                    document.getElementById('username').innerText = profileInfo.identifiant;
+                    document.getElementById('inputUsername').value = profileInfo.identifiant;
+
+                    document.getElementById('bio').innerText = `Bio : ${profileInfo.bio}`;
+                    document.getElementById('inputBio').value = profileInfo.bio;
+
+                    document.getElementById('profilePic').src = profileInfo.ProfilePictureURL || 'https://th.bing.com/th/id/R.aece1145f2d3480e38bc9443a4998c04?rik=ey6pjfxR5wHPvQ&riu=http%3a%2f%2finstitutcommotions.com%2fwp-content%2fuploads%2f2018%2f05%2fblank-profile-picture-973460_960_720-1.png&ehk=cWQNlcoT06KT7deWxMnwK034GVCHVSXupbX4E5i1Psw%3d&risl=&pid=ImgRaw&r=0';
+                    document.getElementById('inputProfilePic').value = profileInfo.ProfilePictureURL || '';
+
+                    document.getElementById('favoriteCar').innerText = `Voiture favorite : ${profileInfo.FavoriteCarModel || 'NON DISPONIBLE'}`;
+                    document.getElementById('inputFavoriteCar').value = profileInfo.FavoriteCarModel || '';
+                } catch (error) {
+                    console.error('Erreur lors du chargement du profil:', error.message);
+                    
+                }
+            }
+
+            // Fonction pour récupérer la valeur d'un cookie
+            function getCookie(name) {
+                const cookies = document.cookie.split(';');
+                for (const cookie of cookies) {
+                    const [cookieName, cookieValue] = cookie.split('=');
+                    if (cookieName.trim() === name) {
+                        return cookieValue;
+                    }
+                }
+                return null;
+            }
+
+            // Appeler la fonction getProfileInfo au chargement de la page pour afficher les informations du profil
+            getProfileInfo();
+        </script>
+
+
+
+        <div class="searchmember">
+            <input type="text" id="searchInput" placeholder="Search by username">
+            <button onclick="searchUsers()">Search</button>
+            <div id="userContainer" style="max-height: 450px; overflow-y: auto;">
+                <ul id="userList"></ul>
+            </div>
+        </div>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                // Charge 15 utilisateurs au hasard au chargement de la page
+                fetch('http://192.168.64.242:3000/randomusers')
+                    .then(response => response.json())
+                    .then(users => displayUsers(users))
+                    .catch(error => console.error('Erreur lors de la récupération des utilisateurs au hasard :', error));
+            });
+
+            function searchUsers() {
+                const searchInput = document.getElementById('searchInput');
+                const searchTerm = searchInput.value.trim();
+
+                // Si la barre de recherche est vide, charge 15 utilisateurs au hasard
+                if (!searchTerm) {
+                    fetch('http://192.168.64.242:3000/randomusers')
+                        .then(response => response.json())
+                        .then(users => displayUsers(users))
+                        .catch(error => console.error('Erreur lors de la récupération des utilisateurs au hasard :', error));
+                    return;
+                }
+
+                // Effectue la recherche d'utilisateurs
+                fetch('http://192.168.64.242:3000/searchusers', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username: searchTerm }),
+                })
+                    .then(response => response.json())
+                    .then(users => displayUsers(users))
+                    .catch(error => console.error('Erreur lors de la recherche d\'utilisateurs :', error));
+            }
+
+            function displayUsers(users) {
+                const userList = document.getElementById('userList');
+                userList.innerHTML = ''; // Efface la liste existante
+
+                users.forEach(user => {
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `
+                        <strong>${user.identifiant}</strong>
+                        <p>${user.Bio}</p>
+                        <p>Favorite Car Model: ${user.FavoriteCarModel}</p>
+                        <hr>
+                    `;
+
+                    userList.appendChild(listItem);
+                });
+            }
+        </script>
+
+    </div>
 </body>
 <footer>
     <div class="footer_text">Tellier Néo - 2023 - Projet E</div>
