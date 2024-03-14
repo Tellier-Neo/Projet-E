@@ -36,52 +36,52 @@
     <div class="LogcontainerSelector">
       <div id="SubmitLogin">Créer un compte</div>
       <script>
-        document.getElementById('SubmitLogin').addEventListener('click', function() {
-    var username = document.getElementById('Username_input').value;
-    var password = document.getElementById('Password_input').value;
-    var resultDiv = document.getElementById('resultRegister');
+        document.getElementById('SubmitLogin').addEventListener('click', function () {
+          var username = document.getElementById('Username_input').value;
+          var password = document.getElementById('Password_input').value;
+          var resultDiv = document.getElementById('resultRegister');
 
 
-    var xhr = new XMLHttpRequest();
-    var url = 'http://192.168.64.242:3000/register';
-    xhr.open('POST', url, true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
+          var xhr = new XMLHttpRequest();
+          var url = 'http://192.168.64.242:3000/register';
+          xhr.open('POST', url, true);
+          xhr.setRequestHeader('Content-Type', 'application/json');
 
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState == 4) {
-        
-        document.getElementById('Username_input').value = '';
-        document.getElementById('Password_input').value = '';
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
 
-       
-        console.log(xhr.responseText);
+              document.getElementById('Username_input').value = '';
+              document.getElementById('Password_input').value = '';
 
-        if (xhr.status == 201) {
-          resultDiv.innerHTML = 'Création de compte réussie';
-          console.log('Utilisateur créé avec succès.');
-          resultDiv.style.color = 'blue';
-          
-        } else if (xhr.status == 400) {
-          resultDiv.innerHTML ='Nom d\'utilisateur déjà pris'
-          
-          
-          
-          console.error('Erreur lors de la création de l\'utilisateur.');
-          
-        } else if (xhr.status == 600) {
-          resultDiv.innerHTML ="Veuillez remplir les deux champs"
-          
-        }
-      }
-    };
 
-    var data = {
-      identifiant: username,
-      password: password
-    };
+              console.log(xhr.responseText);
 
-    xhr.send(JSON.stringify(data));
-  });
+              if (xhr.status == 201) {
+                resultDiv.innerHTML = 'Création de compte réussie';
+                console.log('Utilisateur créé avec succès.');
+                resultDiv.style.color = 'green';
+
+              } else if (xhr.status == 400) {
+                resultDiv.innerHTML = 'Nom d\'utilisateur déjà pris'
+
+
+
+                console.error('Erreur lors de la création de l\'utilisateur.');
+
+              } else if (xhr.status == 600) {
+                resultDiv.innerHTML = "Veuillez remplir les deux champs"
+
+              }
+            }
+          };
+
+          var data = {
+            identifiant: username,
+            password: password
+          };
+
+          xhr.send(JSON.stringify(data));
+        });
       </script>
       <div id="registerButton2">J'ai déjà un compte</div>
       <script>

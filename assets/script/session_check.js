@@ -62,7 +62,7 @@ function updateUI(username) {
         userNameDiv.style.display = 'inline';
         unlogButton.style.display = 'inline';
         memberpage.style.display = 'grid';
-        header_bar2.style.display ='block';
+        header_bar2.style.display = 'block';
     } else {
         // Affiche les boutons de connexion et d'inscription
         logButton.style.display = 'inline';

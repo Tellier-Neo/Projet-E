@@ -44,7 +44,7 @@ db.connect((err) => {
   }
 });
 
-app.use(bodyParser.json()); 
+app.use(bodyParser.json());
 
 const server = app.listen(port, () => {
   console.log(`Le serveur écoute sur le port ${port}`);
@@ -66,7 +66,7 @@ app.post('/register', async (req, res) => {
   const userUUID = uuidv4();
 
   if (!req.body || !req.body.identifiant || !req.body.password) {
-      return res.status(600).json({ error: 'Les champs username et password sont requis.' });
+    return res.status(600).json({ error: 'Les champs username et password sont requis.' });
   }
 
   const { identifiant, password } = req.body;
@@ -74,32 +74,32 @@ app.post('/register', async (req, res) => {
   const userExistsQuery = 'SELECT * FROM User WHERE identifiant = ?';
 
   db.query(userExistsQuery, [identifiant], async (err, results) => {
-      if (err) {
-          console.error('Erreur lors de la vérification de l\'existence de l\'utilisateur :', err);
+    if (err) {
+      console.error('Erreur lors de la vérification de l\'existence de l\'utilisateur :', err);
+      return res.status(500).json({ error: 'Erreur interne du serveur.' });
+    }
+
+    if (results.length > 0) {
+      return res.status(400).json({ error: 'Cet utilisateur existe déjà.' });
+    }
+
+    try {
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      const insertUserQuery = 'INSERT INTO User (identifiant, password, uuid, ProfilePictureURL, FavoriteCarModel) VALUES (?, ?, ?, NULL, NULL)';
+      db.query(insertUserQuery, [identifiant, hashedPassword, userUUID], (insertErr) => {
+        if (insertErr) {
+          console.error('Erreur lors de l\'enregistrement de l\'utilisateur :', insertErr);
           return res.status(500).json({ error: 'Erreur interne du serveur.' });
-      }
+        }
 
-      if (results.length > 0) {
-          return res.status(400).json({ error: 'Cet utilisateur existe déjà.' });
-      }
-
-      try {
-          const hashedPassword = await bcrypt.hash(password, 10);
-
-          const insertUserQuery = 'INSERT INTO User (identifiant, password, uuid, ProfilePictureURL, Bio, FavoriteCarModel) VALUES (?, ?, ?, NULL, NULL, NULL)';
-          db.query(insertUserQuery, [identifiant, hashedPassword, userUUID], (insertErr) => {
-              if (insertErr) {
-                  console.error('Erreur lors de l\'enregistrement de l\'utilisateur :', insertErr);
-                  return res.status(500).json({ error: 'Erreur interne du serveur.' });
-              }
-
-              res.status(201).json({ message: 'Utilisateur enregistré avec succès.' });
-              console.log("Création d'un utilisateur.");
-          });
-      } catch (error) {
-          console.error('Erreur lors du cryptage du mot de passe :', error);
-          res.status(500).json({ error: 'Erreur interne du serveur.' });
-      }
+        res.status(201).json({ message: 'Utilisateur enregistré avec succès.' });
+        console.log("Création d'un utilisateur.");
+      });
+    } catch (error) {
+      console.error('Erreur lors du cryptage du mot de passe :', error);
+      res.status(500).json({ error: 'Erreur interne du serveur.' });
+    }
   });
 });
 
@@ -158,7 +158,7 @@ app.post('/login', async (req, res) => {
           if (uuidResults.length > 0) {
             const userUUID = uuidResults[0].uuid;
 
-            
+
             res.cookie('userUUID', userUUID, { httpOnly: true });
             res.status(200).json({ message: 'Connexion réussie', userUUID });
             console.log("Connexion a un compte effectué")
@@ -176,37 +176,37 @@ app.post('/login', async (req, res) => {
 });
 
 app.post('/get_userinfo', (req, res) => {
-    const userUUID = req.body.userUUID;
+  const userUUID = req.body.userUUID;
 
-    if (!userUUID) {
-        return res.status(400).json({ error: 'Le userUUID est manquant dans la requête.' });
+  if (!userUUID) {
+    return res.status(400).json({ error: 'Le userUUID est manquant dans la requête.' });
+  }
+
+
+  const query = 'SELECT identifiant FROM User WHERE uuid = ?';
+
+  // Exécutez la requête
+  db.query(query, [userUUID], (error, results) => {
+    if (error) {
+      console.error('Erreur lors de la requête SQL :', error);
+      return res.status(500).json({ error: 'Erreur lors de la rcupération des informations de l\'utilisateur.' });
     }
 
-   
-    const query = 'SELECT identifiant FROM User WHERE uuid = ?';
 
-    // Exécutez la requête
-    db.query(query, [userUUID], (error, results) => {
-        if (error) {
-            console.error('Erreur lors de la requête SQL :', error);
-            return res.status(500).json({ error: 'Erreur lors de la rcupération des informations de l\'utilisateur.' });
-        }
+    if (results.length === 0) {
+      return res.status(404).json({ error: 'Aucun utilisateur trouvé avec ce userUUID.' });
+    }
 
-        
-        if (results.length === 0) {
-            return res.status(404).json({ error: 'Aucun utilisateur trouvé avec ce userUUID.' });
-        }
 
-        
-        const username = results[0].identifiant;
-        res.json({ username });
-    });
+    const username = results[0].identifiant;
+    res.json({ username });
+  });
 });
 app.post('/disconnect', (req, res) => {
   const uuid = req.body.userUUID;
 
   if (!uuid) {
-      return res.status(400).json({ error: 'Le userUUID est manquant dans la requête.' });
+    return res.status(400).json({ error: 'Le userUUID est manquant dans la requête.' });
   }
 
   // Génère un nouveau userUUID
@@ -217,19 +217,19 @@ app.post('/disconnect', (req, res) => {
 
   // Exécutez la requête SQL
   db.query(sqlUpdateQuery, [newUUID, uuid], (error, results) => {
-      if (error) {
-          console.error('Erreur lors de la mise à jour du userUUID dans la base de données :', error);
-          return res.status(500).json({ error: 'Erreur lors de la mise à jour du userUUID.' });
-      }
+    if (error) {
+      console.error('Erreur lors de la mise à jour du userUUID dans la base de données :', error);
+      return res.status(500).json({ error: 'Erreur lors de la mise à jour du userUUID.' });
+    }
 
-      // Vérifie si l'utilisateur a été mis à jour avec succès
-      if (results.affectedRows === 0) {
-          return res.status(404).json({ error: 'Aucun utilisateur trouvé avec ce userUUID.' });
-      }
+    // Vérifie si l'utilisateur a été mis à jour avec succès
+    if (results.affectedRows === 0) {
+      return res.status(404).json({ error: 'Aucun utilisateur trouvé avec ce userUUID.' });
+    }
 
-      // Répond avec un statut de succès
-      res.json({ success: true });
-      console.log("Changement d'un UUID");
+    // Répond avec un statut de succès
+    res.json({ success: true });
+    console.log("Changement d'un UUID");
   });
 });
 
@@ -278,33 +278,33 @@ app.post('/addmessage', (req, res) => {
   const { uuid, text } = req.body;
 
   if (!uuid || !text) {
-      return res.status(400).json({ error: 'Les champs uuid et text sont requis.' });
+    return res.status(400).json({ error: 'Les champs uuid et text sont requis.' });
   }
 
   const checkUserQuery = 'SELECT id FROM User WHERE uuid = ?';
 
   db.query(checkUserQuery, [uuid], (error, userResults) => {
-      if (error) {
-          console.error('Erreur lors de la vérification de l\'existence de l\'utilisateur :', error);
-          return res.status(500).json({ error: 'Erreur interne du serveur.' });
+    if (error) {
+      console.error('Erreur lors de la vérification de l\'existence de l\'utilisateur :', error);
+      return res.status(500).json({ error: 'Erreur interne du serveur.' });
+    }
+
+    if (userResults.length === 0) {
+      return res.status(404).json({ error: 'Aucun utilisateur trouvé avec cet uuid.' });
+    }
+
+    const userId = userResults[0].id;
+
+    const addMessageQuery = 'INSERT INTO ChatText (text, userId, messageDate) VALUES (?, ?, ?)';
+
+    db.query(addMessageQuery, [text, userId, moment().format('YYYY-MM-DD HH:mm:ss')], (insertError, insertResults) => {
+      if (insertError) {
+        console.error('Erreur lors de l\'ajout du message dans la table ChatText :', insertError);
+        return res.status(500).json({ error: 'Erreur interne du serveur.' });
       }
 
-      if (userResults.length === 0) {
-          return res.status(404).json({ error: 'Aucun utilisateur trouvé avec cet uuid.' });
-      }
-
-      const userId = userResults[0].id;
-
-      const addMessageQuery = 'INSERT INTO ChatText (text, userId, messageDate) VALUES (?, ?, ?)';
-
-      db.query(addMessageQuery, [text, userId, moment().format('YYYY-MM-DD HH:mm:ss')], (insertError, insertResults) => {
-          if (insertError) {
-              console.error('Erreur lors de l\'ajout du message dans la table ChatText :', insertError);
-              return res.status(500).json({ error: 'Erreur interne du serveur.' });
-          }
-
-          res.status(201).json({ message: 'Message ajouté avec succès.' });
-      });
+      res.status(201).json({ message: 'Message ajouté avec succès.' });
+    });
   });
 });
 
@@ -320,13 +320,13 @@ app.get('/getlastmessages', (req, res) => {
 
   // Exécuter la requête SQL
   db.query(getLastMessagesQuery, (error, results) => {
-      if (error) {
-          console.error('Erreur lors de la récupération des 10 derniers messages :', error);
-          return res.status(500).json({ error: 'Erreur interne du serveur.' });
-      }
+    if (error) {
+      console.error('Erreur lors de la récupération des 10 derniers messages :', error);
+      return res.status(500).json({ error: 'Erreur interne du serveur.' });
+    }
 
-      // Renvoyer les résultats au client
-      res.json(results);
+    // Renvoyer les résultats au client
+    res.json(results);
   });
 });
 
@@ -335,59 +335,61 @@ app.post('/addcar', (req, res) => {
   console.log("Requête reçue pour ajouter une voiture :", req.body);
 
   if (!uuid || !Marque || !Modele || !Puissance || !Description || !LienImage) {
-      return res.status(480).json({ error: 'Des éléments sont manquants dans le formulaire.' });
+    return res.status(480).json({ error: 'Des éléments sont manquants dans le formulaire.' });
+    console.log("Erreur dans l'insertion de la voiture : Code 480")
   }
 
   const checkUUIDQuery = 'SELECT * FROM User WHERE uuid = ?';
   db.query(checkUUIDQuery, [uuid], (uuidCheckError, uuidCheckResults) => {
-      if (uuidCheckError) {
-          console.error('Erreur lors de la vérification de l\'UUID existant :', uuidCheckError);
-          return res.status(500).json({ error: 'Erreur interne du serveur.' });
+    if (uuidCheckError) {
+      console.error('Erreur lors de la vérification de l\'UUID existant :', uuidCheckError);
+      return res.status(500).json({ error: 'Erreur interne du serveur.' });
+      console.log("Erreur 500 pour la requête addcar")
+    }
+
+    if (uuidCheckResults.length === 0) {
+      return res.status(404).json({ error: 'UUID non valide.' });
+    }
+
+    const userId = uuidCheckResults[0].id;
+
+    const getUsernameQuery = 'SELECT identifiant FROM User WHERE id = ?';
+    db.query(getUsernameQuery, [userId], (usernameError, usernameResults) => {
+      if (usernameError) {
+        console.error('Erreur lors de la récupération du nom d\'utilisateur :', usernameError);
+        return res.status(500).json({ error: 'Erreur interne du serveur.' });
       }
 
-      if (uuidCheckResults.length === 0) {
-          return res.status(404).json({ error: 'UUID non valide.' });
-      }
+      if (usernameResults.length > 0) {
+        const username = usernameResults[0].identifiant;
 
-      const userId = uuidCheckResults[0].id;
+        const fullDescription = `${Description} - By ${username}`;
 
-      const getUsernameQuery = 'SELECT identifiant FROM User WHERE id = ?';
-      db.query(getUsernameQuery, [userId], (usernameError, usernameResults) => {
-          if (usernameError) {
-              console.error('Erreur lors de la récupération du nom d\'utilisateur :', usernameError);
+        const checkModelQuery = 'SELECT * FROM Car WHERE Modele = ?';
+        db.query(checkModelQuery, [Modele], (modelCheckError, modelCheckResults) => {
+          if (modelCheckError) {
+            console.error('Erreur lors de la vérification du modèle de voiture existant :', modelCheckError);
+            return res.status(500).json({ error: 'Erreur interne du serveur.' });
+          }
+
+          if (modelCheckResults.length > 0) {
+            return res.status(409).json({ error: 'Le modèle de voiture existe déjà.' });
+          }
+
+          const addCarQuery = 'INSERT INTO Car (Marque, Modele, Puissance, Description, LienImage) VALUES (?, ?, ?, ?, ?)';
+          db.query(addCarQuery, [Marque, Modele, Puissance, fullDescription, LienImage], (addError, addResults) => {
+            if (addError) {
+              console.error('Erreur lors de l\'ajout de la voiture à la table Car :', addError);
               return res.status(500).json({ error: 'Erreur interne du serveur.' });
-          }
+            }
 
-          if (usernameResults.length > 0) {
-              const username = usernameResults[0].identifiant;
-
-              const fullDescription = `${Description} - By ${username}`;
-
-              const checkModelQuery = 'SELECT * FROM Car WHERE Modele = ?';
-              db.query(checkModelQuery, [Modele], (modelCheckError, modelCheckResults) => {
-                  if (modelCheckError) {
-                      console.error('Erreur lors de la vérification du modèle de voiture existant :', modelCheckError);
-                      return res.status(500).json({ error: 'Erreur interne du serveur.' });
-                  }
-
-                  if (modelCheckResults.length > 0) {
-                      return res.status(409).json({ error: 'Le modèle de voiture existe déjà.' });
-                  }
-
-                  const addCarQuery = 'INSERT INTO Car (Marque, Modele, Puissance, Description, LienImage) VALUES (?, ?, ?, ?, ?)';
-                  db.query(addCarQuery, [Marque, Modele, Puissance, fullDescription, LienImage], (addError, addResults) => {
-                      if (addError) {
-                          console.error('Erreur lors de l\'ajout de la voiture à la table Car :', addError);
-                          return res.status(500).json({ error: 'Erreur interne du serveur.' });
-                      }
-
-                      res.status(201).json({ message: 'Voiture ajoutée avec succès.' });
-                  });
-              });
-          } else {
-              return res.status(404).json({ error: 'Nom d\'utilisateur non trouvé.' });
-          }
-      });
+            res.status(201).json({ message: 'Voiture ajoutée avec succès.' });
+          });
+        });
+      } else {
+        return res.status(404).json({ error: 'Nom d\'utilisateur non trouvé.' });
+      }
+    });
   });
 });
 
@@ -451,12 +453,12 @@ app.get('/randomusers', (req, res) => {
   const getRandomUsersQuery = 'SELECT identifiant, Bio, FavoriteCarModel FROM User ORDER BY RAND() LIMIT 15';
 
   db.query(getRandomUsersQuery, (error, results) => {
-      if (error) {
-          console.error('Erreur lors de la récupération des utilisateurs au hasard :', error);
-          return res.status(500).json({ error: 'Erreur interne du serveur.' });
-      }
+    if (error) {
+      console.error('Erreur lors de la récupération des utilisateurs au hasard :', error);
+      return res.status(500).json({ error: 'Erreur interne du serveur.' });
+    }
 
-      res.json(results);
+    res.json(results);
   });
 });
 
@@ -482,13 +484,13 @@ function updateProfileField(req, res, field, fieldType) {
   const value = req.body.value;
 
   if (!uuid || !value) {
-      return res.status(400).json({ error: 'Le uuid et la valeur sont requis dans la requête.' });
+    return res.status(400).json({ error: 'Le uuid et la valeur sont requis dans la requête.' });
   }
 
   // Vérifie si le champ à mettre à jour est autorisé
   const allowedFields = ['identifiant', 'Bio', 'ProfilePictureURL'];
   if (!allowedFields.includes(field)) {
-      return res.status(400).json({ error: 'Le champ spécifié n\'est pas autorisé.' });
+    return res.status(400).json({ error: 'Le champ spécifié n\'est pas autorisé.' });
   }
 
   // Construit la requête SQL dynamique
@@ -496,18 +498,18 @@ function updateProfileField(req, res, field, fieldType) {
 
   // Exécute la requête SQL
   db.query(updateQuery, [value, uuid], (error, results) => {
-      if (error) {
-          console.error(`Erreur lors de la mise à jour du champ ${field} dans la base de données :`, error);
-          return res.status(500).json({ error: 'Erreur lors de la mise à jour du champ du profil.' });
-      }
+    if (error) {
+      console.error(`Erreur lors de la mise à jour du champ ${field} dans la base de données :`, error);
+      return res.status(500).json({ error: 'Erreur lors de la mise à jour du champ du profil.' });
+    }
 
-      // Vérifie si l'utilisateur a été mis à jour avec succès
-      if (results.affectedRows === 0) {
-          return res.status(404).json({ error: 'Aucun utilisateur trouvé avec ce uuid.' });
-      }
+    // Vérifie si l'utilisateur a été mis à jour avec succès
+    if (results.affectedRows === 0) {
+      return res.status(404).json({ error: 'Aucun utilisateur trouvé avec ce uuid.' });
+    }
 
-      // Répond avec un statut de succès
-      res.json({ success: true });
-      console.log(`Mise à jour du champ ${field} pour l'utilisateur avec uuid ${uuid}`);
+    // Répond avec un statut de succès
+    res.json({ success: true });
+    console.log(`Mise à jour du champ ${field} pour l'utilisateur avec uuid ${uuid}`);
   });
 }
