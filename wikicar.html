@@ -341,8 +341,8 @@
                 }
             </script>
         </div>
-        <div class="addcar">
-            <h2>Ajouter une voiture</h2>
+        <div class="addcar" style="background-color: #f1f1f1;">
+            <p>Ajouter une voiture</p>
             <form id="addCarForm">
                 <label for="Marque">Marque :</label>
                 <input type="text" id="Marque" name="Marque" maxlength="255" required>
@@ -359,7 +359,7 @@
                 <label for="LienImage">Lien de l'image :</label>
                 <input type="text" id="LienImage" name="LienImage" maxlength="255" required>
 
-                <button type="submit">Ajouter la voiture</button>
+                <button type="submit" class="addcarsubmit">Ajouter la voiture</button>
             </form>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -383,6 +383,8 @@
                     .then(response => {
                         // Traiter la réponse si nécessaire
                         console.log(response.data);
+                        // Vider le formulaire une fois la requête envoyée avec succès
+                        document.getElementById('addCarForm').reset();
                     })
                     .catch(error => {
                         // Gérer les erreurs si nécessaire
@@ -397,206 +399,19 @@
                 if (parts.length === 2) return parts.pop().split(';').shift();
             }
         </script>
-        <div class="profilepage">
-            <h1 id="username">Nom d'utilisateur</h1>
-            <label for="inputUsername">Nouveau nom d'utilisateur :</label>
-            <input type="text" id="inputUsername" placeholder="Entrez le nouveau nom d'utilisateur">
+        <div class="profilepage" style="background-color: #f1f1f1;">
 
-            <p id="bio">Bio de l'utilisateur</p>
-            <label for="inputBio">Nouvelle bio :</label>
-            <textarea id="inputBio" placeholder="Entrez la nouvelle bio"></textarea>
-
-            <img id="profilePic"
-                src="https://th.bing.com/th/id/R.aece1145f2d3480e38bc9443a4998c04?rik=ey6pjfxR5wHPvQ&riu=http%3a%2f%2finstitutcommotions.com%2fwp-content%2fuploads%2f2018%2f05%2fblank-profile-picture-973460_960_720-1.png&ehk=cWQNlcoT06KT7deWxMnwK034GVCHVSXupbX4E5i1Psw%3d&risl=&pid=ImgRaw&r=0"
-                alt="Photo de profil"
-                style="max-width: 250px; max-height: 250px;">
-            <label for="inputProfilePic">Nouvelle URL de la photo de profil :</label>
-            <input type="text" id="inputProfilePic" placeholder="Entrez la nouvelle URL de la photo de profil">
-
-            <div id="favoriteCarContainer">
-                <p id="favoriteCar">Voiture favorite : NON DISPONIBLE</p>
-            </div>
-
-            <label for="inputFavoriteCar">Nouvelle voiture favorite :</label>
-            <input type="text" id="inputFavoriteCar" placeholder="Entrez la nouvelle voiture favorite">
-
-            <button onclick="updateProfile()">Mettre à jour le profil</button>
         </div>
 
-        <script>
-            async function updateProfile() {
-                const uuid = getCookie('ProjetE_unique_user_token');
-                if (!uuid) {
-                    alert('Erreur : UUID manquant.');
-                    return;
-                }
-
-                const newUsername = document.getElementById('inputUsername').value;
-                const newBio = document.getElementById('inputBio').value;
-                const newProfilePic = document.getElementById('inputProfilePic').value;
-                const newFavoriteCar = document.getElementById('inputFavoriteCar').value;
-
-                const updateRequests = [];
-
-                if (newUsername) {
-                    updateRequests.push(fetchUpdateRequest('nameUpdate', uuid, newUsername));
-                }
-
-                if (newBio) {
-                    updateRequests.push(fetchUpdateRequest('BioUpdate', uuid, newBio));
-                }
-
-                if (newProfilePic) {
-                    updateRequests.push(fetchUpdateRequest('ProfilePicUpdate', uuid, newProfilePic));
-                }
-
-                if (newFavoriteCar) {
-                    updateRequests.push(fetchUpdateRequest('FavoriteCarUpdate', uuid, newFavoriteCar));
-                }
-
-                try {
-                    const updateResults = await Promise.all(updateRequests);
-
-                    updateResults.forEach(result => {
-                        if (!result.success) {
-                            alert(`Erreur lors de la mise à jour : ${result.message}`);
-                        }
-                    });
-
-                    // Recharge les informations du profil après la mise à jour
-                    await getProfileInfo();
-                } catch (error) {
-                    console.error('Erreur lors de la mise à jour du profil :', error);
-                    alert('Erreur lors de la mise à jour du profil.');
-                }
-            }
-
-            async function fetchUpdateRequest(endpoint, uuid, value) {
-                const response = await fetch(`http://192.168.64.242:3000/${endpoint}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ uuid, value }),
-                });
-
-                return response.json();
-            }
-
-            async function getProfileInfo() {
-                const uuid = getCookie('ProjetE_unique_user_token');
-                if (!uuid) {
-                    console.log("UUID manquant")
-                    return;
-                }
-
-                try {
-                    const response = await fetch(`http://192.168.64.242:3000/profile/${uuid}`, {
-                        method: 'GET',
-                    });
-
-                    if (!response.ok) {
-                        throw new Error(`Erreur de chargement du profil: ${response.status}`);
-                    }
-
-                    const profileInfo = await response.json();
-
-                    // Met à jour les champs de saisie et les titres avec les nouvelles informations
-                    document.getElementById('username').innerText = profileInfo.identifiant;
-                    document.getElementById('inputUsername').value = profileInfo.identifiant;
-
-                    document.getElementById('bio').innerText = `Bio : ${profileInfo.bio}`;
-                    document.getElementById('inputBio').value = profileInfo.bio;
-
-                    document.getElementById('profilePic').src = profileInfo.ProfilePictureURL || 'https://th.bing.com/th/id/R.aece1145f2d3480e38bc9443a4998c04?rik=ey6pjfxR5wHPvQ&riu=http%3a%2f%2finstitutcommotions.com%2fwp-content%2fuploads%2f2018%2f05%2fblank-profile-picture-973460_960_720-1.png&ehk=cWQNlcoT06KT7deWxMnwK034GVCHVSXupbX4E5i1Psw%3d&risl=&pid=ImgRaw&r=0';
-                    document.getElementById('inputProfilePic').value = profileInfo.ProfilePictureURL || '';
-
-                    document.getElementById('favoriteCar').innerText = `Voiture favorite : ${profileInfo.FavoriteCarModel || 'NON DISPONIBLE'}`;
-                    document.getElementById('inputFavoriteCar').value = profileInfo.FavoriteCarModel || '';
-                } catch (error) {
-                    console.error('Erreur lors du chargement du profil:', error.message);
-                    
-                }
-            }
-
-            // Fonction pour récupérer la valeur d'un cookie
-            function getCookie(name) {
-                const cookies = document.cookie.split(';');
-                for (const cookie of cookies) {
-                    const [cookieName, cookieValue] = cookie.split('=');
-                    if (cookieName.trim() === name) {
-                        return cookieValue;
-                    }
-                }
-                return null;
-            }
-
-            // Appeler la fonction getProfileInfo au chargement de la page pour afficher les informations du profil
-            getProfileInfo();
-        </script>
 
 
 
-        <div class="searchmember">
-            <input type="text" id="searchInput" placeholder="Search by username">
-            <button onclick="searchUsers()">Search</button>
-            <div id="userContainer" style="max-height: 450px; overflow-y: auto;">
-                <ul id="userList"></ul>
-            </div>
+
+        <div class="searchmember" style="background-color: #f1f1f1;">
+
         </div>
 
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                // Charge 15 utilisateurs au hasard au chargement de la page
-                fetch('http://192.168.64.242:3000/randomusers')
-                    .then(response => response.json())
-                    .then(users => displayUsers(users))
-                    .catch(error => console.error('Erreur lors de la récupération des utilisateurs au hasard :', error));
-            });
 
-            function searchUsers() {
-                const searchInput = document.getElementById('searchInput');
-                const searchTerm = searchInput.value.trim();
-
-                // Si la barre de recherche est vide, charge 15 utilisateurs au hasard
-                if (!searchTerm) {
-                    fetch('http://192.168.64.242:3000/randomusers')
-                        .then(response => response.json())
-                        .then(users => displayUsers(users))
-                        .catch(error => console.error('Erreur lors de la récupération des utilisateurs au hasard :', error));
-                    return;
-                }
-
-                // Effectue la recherche d'utilisateurs
-                fetch('http://192.168.64.242:3000/searchusers', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ username: searchTerm }),
-                })
-                    .then(response => response.json())
-                    .then(users => displayUsers(users))
-                    .catch(error => console.error('Erreur lors de la recherche d\'utilisateurs :', error));
-            }
-
-            function displayUsers(users) {
-                const userList = document.getElementById('userList');
-                userList.innerHTML = ''; // Efface la liste existante
-
-                users.forEach(user => {
-                    const listItem = document.createElement('li');
-                    listItem.innerHTML = `
-                        <strong>${user.identifiant}</strong>
-                        <p>${user.Bio}</p>
-                        <p>Favorite Car Model: ${user.FavoriteCarModel}</p>
-                        <hr>
-                    `;
-
-                    userList.appendChild(listItem);
-                });
-            }
-        </script>
 
     </div>
 </body>
