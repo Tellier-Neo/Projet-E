@@ -39,7 +39,7 @@ db.connect((err) => {
   if (err) {
     console.error('Erreur de connexion à la base de données : ' + err.message);
   } else {
-    console.log('Connecté à la base de données MySQL');
+    console.log('Connecté à la base de données MySQL ');
     deleteObsoleteMessages();
   }
 });
@@ -57,6 +57,8 @@ console.log("  Nom du serveur  : Wikicar server");
 console.log("  Version         : 1.1.1");
 console.log("  Port écoute     : 3000");
 console.log("  Environnement   : Dev edition");
+console.log("  Chargement des modules   : Valide");
+console.log("  Etat du serveur   : En écoute et fonctionnel");
 console.log("===============================================");
 console.log("===============================================");
 
@@ -67,6 +69,10 @@ app.post('/register', async (req, res) => {
 
   if (!req.body || !req.body.identifiant || !req.body.password) {
     return res.status(600).json({ error: 'Les champs username et password sont requis.' });
+    console.log("===============================================");
+    console.log("Route = /register : Erreur 600, formulaire d'inscription incomplet reçu");
+    console.log("Result : abort");
+    console.log("===============================================");
   }
 
   const { identifiant, password } = req.body;
@@ -77,10 +83,18 @@ app.post('/register', async (req, res) => {
     if (err) {
       console.error('Erreur lors de la vérification de l\'existence de l\'utilisateur :', err);
       return res.status(500).json({ error: 'Erreur interne du serveur.' });
+      console.log("===============================================");
+      console.log("Route = /register : Erreur 500, Erreur interne du serveur lors de la recherche");
+      console.log("Result : abort");
+      console.log("===============================================");
     }
 
     if (results.length > 0) {
       return res.status(400).json({ error: 'Cet utilisateur existe déjà.' });
+      console.log("===============================================");
+      console.log("Route = /register : Erreur 400, Utilisateur déjà existant dans la BDD");
+      console.log("Result : abort");
+      console.log("===============================================");
     }
 
     try {
@@ -91,14 +105,26 @@ app.post('/register', async (req, res) => {
         if (insertErr) {
           console.error('Erreur lors de l\'enregistrement de l\'utilisateur :', insertErr);
           return res.status(500).json({ error: 'Erreur interne du serveur.' });
+          console.log("===============================================");
+          console.log("Route = /register : Erreur 500, Erreur interne au serveur lors de l\'enregistrement d\'un utilisateur");
+          console.log("Result : abort");
+          console.log("===============================================");
         }
 
         res.status(201).json({ message: 'Utilisateur enregistré avec succès.' });
-        console.log("Création d'un utilisateur.");
+        console.log("===============================================");
+        console.log("Route = /register : Réussite (Code 201), inscription réussite");
+        console.log("Result : Success");
+        console.log("===============================================");
+
       });
     } catch (error) {
       console.error('Erreur lors du cryptage du mot de passe :', error);
       res.status(500).json({ error: 'Erreur interne du serveur.' });
+      console.log("===============================================");
+      console.log("Route = /register : Erreur 500, Erreur lors du cryptage du mot de passe");
+      console.log("Result : abort");
+      console.log("===============================================");
     }
   });
 });
