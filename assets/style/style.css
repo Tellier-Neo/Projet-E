@@ -24,7 +24,7 @@
  footer {
      width: 100%;
      height: 50px;
-     background-color: #0023c0;
+     background-color: #0094f7c5;
      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
      display: flex;
      flex-direction: row;
@@ -47,7 +47,7 @@
  .progress-bar {
      height: 0;
      width: 100%;
-     background-color: #0023c0;
+     background-color: #0094f7c5;
      transition: height 0.3s;
      display: 1;
  }
@@ -70,7 +70,7 @@
  }
 
  .nav-bar {
-     background-color: #0023c0;
+     background-color: #0094f7c5;
      width: 100%;
      height: 100px;
      display: flex;
@@ -186,7 +186,7 @@
  }
 
  .header_bar {
-     background-color: #0023c0;
+     background-color: #0094f7c5;
      margin-top: 0;
      margin-bottom: 0;
      text-align: center;
@@ -287,7 +287,7 @@
      height: 28%;
      padding: 2%;
      border-style: solid;
-     background-color: #0023c0;
+     background-color: #0094f7c5;
      color: #131313;
      display: flex;
      flex-direction: column;
@@ -608,7 +608,7 @@
 
 
  .header_bar2 {
-     background-color: #0023c0;
+     background-color: #0094f7c5;
      margin-top: 0;
      margin-bottom: 0;
      text-align: center;
@@ -663,7 +663,7 @@
  }
 
  .send-button:hover {
-     background-color: blue;
+     background-color: #0094f7c5;
      transition: 250ms;
      color: #ffffff;
      cursor: pointer;
@@ -780,7 +780,7 @@
  }
 
  .addcarsubmit:hover {
-     background-color: blue;
+     background-color: #0094f7c5;
      color: #ffffff;
      cursor: pointer;
      transition: 250ms;
@@ -815,7 +815,7 @@
 
  #searchbutton:hover {
      cursor: pointer;
-     background-color: blue;
+     background-color: #0094f7c5;
      color: #ffffff;
      transition: 250ms;
  }
@@ -866,8 +866,174 @@
  }
 
  #D1973 {
-    background-image: url(/assets/images/1973.png);
-    background-size: cover;
+     background-image: url(/assets/images/1973.png);
+     background-size: cover;
+     transition: 250ms;
+     background-position-x: 40%;
+
+ }
+
+ #D1973:hover {
+     background-image: url(/assets/images/blackpure.png);
+     background-color: #131313;
+     transition: 250ms;
+     background-position-x: 40%;
+
+ }
+
+ #D1979 {
+     background-image: url(/assets/images/1979.png);
+     background-size: cover;
+     transition: 250ms;
+     background-position-x: 40%;
+ }
+
+ #D1979:hover {
+     background-image: url(/assets/images/blackpure.png);
+     background-color: #131313;
+     transition: 250ms;
+     background-position-x: 40%;
+ }
+
+ #D1981 {
+     background-image: url(/assets/images/1981.png);
+     background-size: cover;
+     transition: 250ms;
+     background-position-x: 40%;
+ }
+
+ #D1981:hover {
+     background-image: url(/assets/images/blackpure.png);
+     background-color: #131313;
+     transition: 250ms;
+     background-position-x: 5%;
+ }
+
+ #D1986 {
+     background-image: url(/assets/images/1986.png);
+     background-size: cover;
+     transition: 250ms;
+     background-position-x: 50%;
+ }
+
+
+ #D1986:hover {
+     background-image: url(/assets/images/blackpure.png);
+     background-color: #131313;
+     transition: 250ms;
+     background-position-x: 50%;
+ }
+
+ #D1995 {
+     background-image: url(/assets/images/1995.png);
+     background-size: cover;
+     transition: 250ms;
+     background-position-x: 50%;
+ }
+
+ #D1995:hover {
+     background-image: url(/assets/images/blackpure.png);
+     background-color: #131313;
+     transition: 250ms;
+     background-position-x: 50%;
+ }
+
+ #D1998 {
+     background-image: url(/assets/images/1998.png);
+     background-size: cover;
+     transition: 250ms;
+     background-position-x: 50%;
+ }
+
+ #D1998:hover {
+     background-image: url(/assets/images/blackpure.png);
+     background-color: #131313;
+     transition: 250ms;
+     background-position-x: 50%;
+ }
+
+ #D2003 {
+     background-image: url(/assets/images/2003.png);
+     background-size: cover;
+     transition: 250ms;
+     background-position-x: 70%;
+ }
+
+ #D2003:hover {
+     background-image: url(/assets/images/blackpure.png);
+     background-color: #131313;
+     transition: 250ms;
+     background-position-x: 70%;
+ }
+
+ #D2007 {
+     background-image: url(/assets/images/2007.png);
+     background-size: cover;
+     transition: 250ms;
+     background-position-x: 90%;
+ }
+
+ #D2007:hover {
+     background-image: url(/assets/images/blackpure.png);
+     background-color: #131313;
+     transition: 250ms;
+     background-position-x: 70%;
+ }
+
+ #D2012 {
+     background-image: url(/assets/images/2012.png);
+     background-size: cover;
+     transition: 250ms;
+     background-position-x: 50%;
+ }
+
+ #D2012:hover {
+     background-image: url(/assets/images/blackpure.png);
+     background-color: #131313;
+     transition: 250ms;
+     background-position-x: 70%;
+ }
+
+ #D2017 {
+     background-image: url(/assets/images/2017.png);
+     background-size: cover;
+     transition: 250ms;
+     background-position-x: 50%;
+ }
+
+ #D2017:hover {
+     background-image: url(/assets/images/blackpure.png);
+     background-color: #131313;
+     transition: 250ms;
+     background-position-x: 70%;
+ }
+
+ #D2019 {
+     background-image: url(/assets/images/2019.png);
+     background-size: cover;
+     transition: 250ms;
+     background-position-x: 50%;
+ }
+
+ #D2019:hover {
+     background-image: url(/assets/images/blackpure.png);
+     background-color: #131313;
+     transition: 250ms;
+     background-position-x: 70%;
+ }
+
+ #D2021 {
+     background-image: url(/assets/images/2021.png);
+     background-size: cover;
+     transition: 250ms;
+     background-position-x: 30%;
+ }
+
+ #D2021:hover {
+     background-image: url(/assets/images/blackpure.png);
+     background-color: #131313;
+     transition: 250ms;
+     background-position-x: 70%;
  }
 
  .YearHistory:hover {
@@ -877,5 +1043,5 @@
      background-color: #131313;
      background-image: none;
      transition: 250ms;
-     
+
  }
