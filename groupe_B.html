@@ -7,7 +7,8 @@
     <title>Projet E</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='assets/style/style.css' id="themeStylesheet">
-
+    <script src="assets/script/main.js"></script>
+    <script src="assets/script/session_check.js"></script>
 </head>
 
 <body>
@@ -26,17 +27,195 @@
             Wikicar
         </div>
     </div>
-    
+    <div class="logbar">
+        <button id="logButton" style="display: inline;" class="logRegDisButton"> Se connecter</button>
+        <button id="registerButton" style="display: inline;" class="logRegDisButton">Créer un compte</button>
+        <div id="userName" style="display: none;" class="logRegDisButton2"></div>
+        <script>// Fonction pour supprimer le cookie par son nom
+            function deleteCookie(cookieName) {
+                document.cookie = cookieName + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            }
+
+            // Fonction pour déconnecter l'utilisateur
+            async function disconnectUser() {
+                const userUUID = getCookieValue('ProjetE_unique_user_token');
+
+                // Vérifie la présence du userUUID dans les cookies
+                if (userUUID) {
+                    try {
+                        // Envoie une requête vers /disconnect avec le userUUID
+                        const response = await fetch('http://192.168.64.242:3000/disconnect', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ userUUID }),
+                        });
+
+                        if (response.ok) {
+                            console.log('Utilisateur déconnecté avec succès.');
+                        } else {
+                            console.error('Erreur lors de la requête (disconnect):', response.statusText);
+                        }
+                    } catch (error) {
+                        console.error('Erreur lors de la requête (disconnect):', error.message);
+                    }
+
+                    // Supprime le cookie userUUID
+                    deleteCookie('ProjetE_unique_user_token');
+
+                    // Recharge la page
+                    location.reload();
+                } else {
+                    console.log('Pas de userUUID trouvé dans les cookies. Aucune déconnexion nécessaire.');
+                }
+            }
+
+
+        </script>
+        <button id="Unlog" style="display: none;" class="logRegDisButton" onclick="disconnectUser()">Se
+            déconnecter</button>
+    </div>
+
 
     <div class="content-container_class2">
-
-        
+        <div class="GroupBHistory">
+            <div class="IntroGroupB_history">
+                <h2>Histoire du Groupe B dans le Rallye</h2>
+                <p>Le Groupe B a marqué une ère passionnante et parfois controversée dans l'histoire du rallye
+                    automobile. Né dans les années 1980, il a révolutionné la compétition automobile avec des règles qui
+                    ont permis des voitures de rallye incroyablement rapides et techniquement avancées.</p>
+                <p>Ce fut une période de grande innovation, où les constructeurs rivalisaient pour produire les voitures
+                    les plus puissantes et les plus performantes, mais elle a également été marquée par des tragédies
+                    qui ont conduit à sa dissolution.</p>
+                <p>Le Groupe B a laissé un héritage indélébile dans l'histoire du sport automobile, symbole de la
+                    passion et de l'audace qui caractérisent ce sport.</p>
+            </div>
+            <div class="ContenuGroupB_history">
+                <h3>Les années de gloire et d'innovation</h3>
+                <p>Pendant ses années de gloire, le Groupe B a vu émerger certaines des voitures les plus emblématiques
+                    de l'histoire du rallye. Les constructeurs ont poussé les limites de la technologie pour produire
+                    des machines incroyablement rapides et agiles, capables de dominer les routes de rallye les plus
+                    difficiles.</p>
+                <p>Les voitures du Groupe B étaient dotées de moteurs turbo suralimentés, de systèmes de transmission
+                    intégrale sophistiqués et de châssis légers en matériaux composites. Ces machines étaient des bêtes
+                    de course, offrant des performances époustouflantes et des sensations fortes pour les pilotes et les
+                    spectateurs.</p>
+                <p>Les rallyes du Groupe B étaient des événements spectaculaires, attirant des foules enthousiastes et
+                    captivant des millions de téléspectateurs à travers le monde. C'était une époque d'excitation et
+                    d'innovation sans précédent dans le sport automobile.</p>
+            </div>
+            <div class="EndGroupB_history">
+                <h3>La fin tragique du Groupe B</h3>
+                <p>Malgré son succès, le Groupe B a connu une fin tragique. Les voitures de cette catégorie devenaient
+                    de plus en plus puissantes et rapides, mettant en danger la sécurité des pilotes, des co-pilotes et
+                    des spectateurs.</p>
+                <p>En 1986, une série d'accidents mortels lors du rallye du Portugal a contraint les organisateurs à
+                    suspendre le Groupe B. Les autorités sportives ont ensuite décidé de dissoudre la catégorie, mettant
+                    fin à une ère d'innovation et de compétition féroce.</p>
+                <p>La dissolution du Groupe B a marqué la fin d'une époque dorée du rallye, mais son héritage perdure
+                    dans l'histoire du sport automobile. Les voitures et les pilotes du Groupe B restent des légendes,
+                    symboles de la passion et de l'audace qui caractérisent ce sport.</p>
+            </div>
+        </div>
+        <div class="header_bar"> <strong>
+                <h3>Les Voitures du Groupe B</h3>
+            </strong></div>
+        <div class="GroupBcar">
+            <div class="GroupBcar_card">
+                <img src="https://th.bing.com/th/id/R.581a69c261625d86aef721b5cf000085?rik=dZzEK6%2b1dVTKFQ&pid=ImgRaw&r=0"
+                    alt="" id="groupBCarImage">
+                <h3 class="GroupBCarTitle">Audi Sport Quattro S1</h3>
+                <p class="GroupBCarText">L'Audi Sport Quattro S1 est l'une des voitures les plus emblématiques du Groupe
+                    B. Dotée d'un moteur cinq cylindres turbocharged, elle était célèbre pour sa transmission intégrale
+                    quattro d'Audi et sa puissance impressionnante. Avec son allure distinctive et sa performance
+                    redoutable, elle a dominé les rallyes dans les années 1980.</p>
+            </div>
+            <div class="GroupBcar_card">
+                <img src="https://th.bing.com/th/id/R.1a417957a471edd5022c838c2918bb95?rik=82NIWK1lhRTrUg&riu=http%3a%2f%2fimg.favcars.com%2flancia%2frally-037%2fimages_lancia_rally_037_1982_1.jpg&ehk=35a441a14S%2f%2flxLqf4BChp0ZB%2b26%2b%2bx6wdjwhb%2f0LqA%3d&risl=&pid=ImgRaw&r=0"
+                    alt="" id="groupBCarImage">
+                <h3 class="GroupBCarTitle">Lancia 037 Rally
+                </h3>
+                <p class="GroupBCarText">La Lancia 037 Rally était une voiture de rallye à propulsion arrière, équipée
+                    d'un moteur quatre cylindres en ligne. Conçue pour être compétitive dans les épreuves de rallye sur
+                    surface mixte, elle a remporté le Championnat du monde des rallyes en 1983. Son agilité et sa
+                    maniabilité en ont fait une voiture redoutable sur tous les terrains.</p>
+            </div>
+            <div class="GroupBcar_card">
+                <img src="https://static.fanpage.it/socialmediafanpage/wp-content/uploads/2011/12/lancia-delta-s4.jpg"
+                    alt="" id="groupBCarImage">
+                <h3 class="GroupBCarTitle">Lancia Delta S4
+                </h3>
+                <p class="GroupBCarText">La Lancia Delta S4 était une voiture révolutionnaire dans le monde du rallye,
+                    équipée d'un moteur quatre cylindres en ligne turbocompressé et suralimenté par un compresseur
+                    volumétrique. Sa conception audacieuse lui a permis d'atteindre des performances impressionnantes,
+                    mais elle a également été impliquée dans des accidents graves qui ont finalement conduit à la fin du
+                    Groupe B.</p>
+            </div>
+            <div class="GroupBcar_card">
+                <img src="https://th.bing.com/th/id/OIP.uRsLepOYjd1rg8JnWigs6gHaFj?rs=1&pid=ImgDetMain" alt=""
+                    id="groupBCarImage">
+                <h3 class="GroupBCarTitle">Ford RS200
+                </h3>
+                <p class="GroupBCarText">La Ford RS200 était une voiture de rallye conçue spécifiquement pour le Groupe
+                    B, avec un moteur turbocompressé monté à l'arrière. Bien qu'elle n'ait pas remporté autant de succès
+                    que certaines de ses rivales, elle était connue pour sa maniabilité exceptionnelle et son design
+                    distinctif.</p>
+            </div>
+            <div class="GroupBcar_card">
+                <img src="https://i.pinimg.com/originals/60/ab/a6/60aba6e818dc7fdc6894d30d9af79ec7.jpg" alt=""
+                    id="groupBCarImage">
+                <h3 class="GroupBCarTitle">Peugeot 205 Turbo 16
+                </h3>
+                <p class="GroupBCarText">La Peugeot 205 Turbo 16 était une voiture révolutionnaire dans le monde du
+                    rallye, avec son moteur turbocompressé monté en position centrale. Elle a remporté deux titres
+                    consécutifs du Championnat du monde des rallyes en 1985 et 1986, établissant ainsi la domination de
+                    Peugeot dans le Groupe B.</p>
+            </div>
+            <div class="GroupBcar_card">
+                <img src="https://th.bing.com/th/id/R.7ad26658c6bc858fd4501b600ea95885?rik=%2bIGUALyxRxrusQ&pid=ImgRaw&r=0"
+                    alt="" id="groupBCarImage">
+                <h3 class="GroupBCarTitle">MG Metro 6R4
+                </h3>
+                <p class="GroupBCarText">La MG Metro 6R4 était une voiture unique dans le Groupe B, avec son moteur V6
+                    atmosphérique monté à l'arrière. Bien qu'elle n'ait pas réussi à obtenir de grands succès en
+                    compétition, elle était connue pour son design distinctif et son moteur puissant.</p>
+            </div>
+            <div class="GroupBcar_card">
+                <img src="https://cdn.carbuzz.com/gallery-images/1600/792000/800/792802.jpg" alt="" id="groupBCarImage">
+                <h3 class="GroupBCarTitle">Porsche 959
+                </h3>
+                <p class="GroupBCarText">La Porsche 959 était une voiture de route haut de gamme qui a été homologuée
+                    pour le Groupe B, bien qu'elle n'ait jamais vraiment été utilisée en compétition. Avec sa
+                    technologie de pointe et ses performances impressionnantes, elle reste l'une des voitures les plus
+                    emblématiques de son époque.</p>
+            </div>
+            <div class="GroupBcar_card">
+                <img src="https://www.mad4wheels.com/img/free-car-images/mobile/16808/renault-5-maxi-turbo-rally-1983-517550.jpg"
+                    alt="" id="groupBCarImage">
+                <h3 class="GroupBCarTitle">Renault 5 Turbo
+                </h3>
+                <p class="GroupBCarText">La Renault 5 Turbo était une voiture de rallye à propulsion arrière, équipée
+                    d'un moteur turbocompressé monté en position centrale arrière. Avec son design distinctif et sa
+                    performance impressionnante, elle a remporté plusieurs victoires en rallye dans les années 1980.</p>
+            </div>
+            <div class="GroupBcar_card">
+                <img src="https://i.pinimg.com/originals/7a/21/ef/7a21ef04bab1a59d70940aa6e796609a.jpg" alt=""
+                    id="groupBCarImage">
+                <h3 class="GroupBCarTitle">Ferrari 288 GTO
+                </h3>
+                <p class="GroupBCarText">La Ferrari 288 GTO était une voiture de route emblématique qui a également été
+                    homologuée pour le Groupe B, bien qu'elle n'ait jamais vraiment été utilisée en compétition. Avec
+                    son moteur V8 turbocompressé et son design élégant, elle incarne le summum du luxe et de la
+                    performance dans le monde automobile.</p>
+            </div>
+        </div>
 
     </div>
 
 </body>
 <footer>
-    <div class="footer_text">Tellier Néo - 2023 - Projet E</div>
+    <div class="footer_text">Tellier Néo / Rosier Valentin - 2023 - Projet E</div>
 </footer>
 <script src="/assets/script/main.js"></script>
 
