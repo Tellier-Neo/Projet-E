@@ -346,6 +346,8 @@
         </div>
         <div class="addcar" style="background-color: #f1f1f1;">
             <p>Ajouter une voiture</p>
+            <h2 style="font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; color: red; font-size: medium;">Tesla Interdite</h2>
+
             <form id="addCarForm">
                 <label for="Marque">Marque :</label>
                 <input type="text" id="Marque" name="Marque" maxlength="255" required>
@@ -402,55 +404,158 @@
                 if (parts.length === 2) return parts.pop().split(';').shift();
             }
         </script>
-        <div class="Hytec" style="background-color: #f1f1f1;">
-            <h1>Hytec : Redéfinir l'Excellence Automobile</h1>
+    </div>
+    <div class="header_bar2">
+        <h2>Hytec Automobile</h2>
+    </div>
+    <div class="Hytec" style="background-color: #f1f1f1;">
+        <h1>Hytec : Redéfinir l'Excellence Automobile</h1>
+        <div class="ImageAndText">
+            <img src="" alt=""
+                style="max-width: 50%; max-height: 50%; margin: 2%; border-color: black; border-style: solid; border-width: thin;">
             <p>Fondée en 2008 par un groupe d'ingénieurs passionnés par l'innovation et la performance, Hytec est une
                 entreprise fictive qui s'est rapidement imposée comme un acteur majeur de l'industrie automobile.
                 Inspirée par la vision de repousser les limites de l'ingénierie automobile, Hytec s'est donné pour
                 mission de créer des véhicules qui marient à la perfection puissance, confort et technologie de pointe.
             </p>
+        </div>
 
-            <h2>Une Vision Audacieuse</h2>
+        <h2>Une Vision Audacieuse</h2>
+        <div class="ImageAndText">
+            <img src="" alt=""
+                style="max-width: 50%; max-height: 50%; margin: 2%; border-color: black; border-style: solid; border-width: thin;">
             <p>Dès ses débuts, Hytec s'est engagée à révolutionner l'industrie automobile en proposant des véhicules qui
                 dépassent les attentes et défient les conventions. Animée par une passion pour l'innovation,
                 l'entreprise a investi massivement dans la recherche et le développement pour concevoir des voitures qui
                 repoussent les limites de la performance et de la technologie.</p>
+        </div>
 
-            <h2>L'Ère de l'Excellence</h2>
+        <h2>L'Ère de l'Excellence</h2>
+        <div class="ImageAndText">
             <p>Au fil des années, Hytec a lancé une série de modèles emblématiques qui ont redéfini les standards de
                 l'industrie. De la puissante Hytec 855 Evo à la polyvalente Hytec 608, chaque véhicule a été conçu avec
                 une attention méticuleuse aux détails et un engagement indéfectible envers l'excellence.</p>
-
-            <h2>Innovation Sans Limite</h2>
+        </div>
+        <h2>Innovation Sans Limite</h2>
+        <div class="ImageAndText">
+            <img src="" alt=""
+                style="max-width: 50%; max-height: 50%; margin: 2%; border-color: black; border-style: solid; border-width: thin;">
             <p>Hytec a toujours été à la pointe de l'innovation, intégrant les dernières avancées technologiques dans
                 ses véhicules pour offrir une expérience de conduite inégalée. Des moteurs suralimentés aux systèmes de
                 sécurité avancés, chaque innovation est conçue pour améliorer les performances, le confort et la
                 sécurité des conducteurs et des passagers.</p>
+        </div>
 
-            <h2>Engagement envers l'Avenir</h2>
+        <h2>Engagement envers l'Avenir</h2>
+        <div class="ImageAndText">
+            <img src="" alt=""
+                style="max-width: 50%; max-height: 50%; margin: 2%; border-color: black; border-style: solid; border-width: thin;">
             <p>En tant qu'entreprise fictive, Hytec n'est pas liée par les contraintes du monde réel, ce qui lui permet
                 d'explorer des idées et des concepts audacieux sans compromis. Guidée par une vision à long terme,
                 l'entreprise s'engage à façonner l'avenir de l'automobile en repoussant constamment les limites de
                 l'innovation et de la performance.</p>
+        </div>
 
-            <h2>Une Passion pour l'Excellence</h2>
+        <h2>Une Passion pour l'Excellence</h2>
+        <div class="ImageAndText">
+            <img src="" alt=""
+                style="max-width: 50%; max-height: 50%; margin: 2%; border-color: black; border-style: solid; border-width: thin;">
             <p>Chez Hytec, la passion pour l'excellence est au cœur de tout ce que nous faisons. De la conception à la
                 production, chaque membre de notre équipe s'efforce de créer des véhicules exceptionnels qui inspirent
                 et ravissent nos clients à travers le monde.</p>
+        </div>
 
-            <h1>Hytec : Osez l'Extraordinaire</h1>
+        <h1>Hytec : Osez l'Extraordinaire</h1>
+        <div class="ImageAndText">
+            <img src="" alt=""
+                style="max-width: 50%; max-height: 50%; margin: 2%; border-color: black; border-style: solid; border-width: thin;">
             <p>En repoussant les limites de l'ingénierie et de la conception automobile, Hytec continue de redéfinir ce
                 que signifie conduire une voiture. Avec un engagement indéfectible envers l'innovation, la performance
                 et l'excellence, nous sommes fiers d'être à l'avant-garde de l'industrie automobile et de façonner
                 l'avenir de la conduite. Osez l'extraordinaire avec Hytec.</p>
         </div>
-
-
-        <div class="HytecCar" style="background-color: #f1f1f1;">
-
-        </div>
-
     </div>
+    <div class="header_bar2">
+        <h2> Les voitures Hytec</h2>
+    </div>
+    <div class="HytecCar">
+        <div class="car-grid" id="car-grid"></div>
+
+        <!-- Modal -->
+        <div class="modal" id="carModal">
+            <div class="modal-content" id="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <div id="car-info"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function fetchAndDisplayCars() {
+            try {
+                const response = await fetch('http://192.168.64.242:3000/hytecCar');
+
+                if (!response.ok) {
+                    throw new Error('Erreur lors de la récupération des voitures');
+                }
+
+                const cars = await response.json();
+
+                const carGrid = document.getElementById('car-grid');
+
+                cars.forEach((car, index) => {
+                    const carElement = document.createElement('div');
+                    carElement.classList.add('car-item');
+                    carElement.innerHTML = `
+                <img src="${car.LienImage}" alt="${car.Modele}" 
+                    data-model="${car.Modele}" 
+                    data-description="${car.Description}" 
+                    data-puissance="${car.Puissance}">
+            `;
+                    carElement.addEventListener('click', () => openModal(car));
+                    carGrid.appendChild(carElement);
+                });
+            } catch (error) {
+                console.error('Erreur:', error);
+            }
+        }
+
+        // Fonction pour ouvrir la modal et afficher les informations de la voiture sélectionnée
+        function openModal(car) {
+            const modalContent = document.getElementById('modal-content');
+
+            // Remplacer les retours chariot par des balises <br>
+            const formattedDescription = car.Description.replace(/\r\n/g, '<br>');
+
+            modalContent.innerHTML = `
+        <h2>${car.Modele}</h2>
+        <p><strong>Description:</strong> ${formattedDescription}</p>
+        <p><strong>Puissance:</strong> ${car.Puissance} CV</p>
+        <img src="${car.LienImage}" alt="${car.Modele}">
+    `;
+
+            const carModal = document.getElementById('carModal');
+            carModal.style.display = 'block';
+        }
+        // Fonction pour fermer la modal
+        function closeModal() {
+            const carModal = document.getElementById('carModal');
+            carModal.style.display = 'none';
+        }
+
+        // Fermer la modal si l'utilisateur clique en dehors de celle-ci
+        window.onclick = function (event) {
+            const carModal = document.getElementById('carModal');
+            if (event.target == carModal) {
+                closeModal();
+            }
+        }
+
+        // Appel de la fonction pour récupérer et afficher les voitures
+        fetchAndDisplayCars();
+    </script>
+   
+
 </body>
 <footer>
     <div class="footer_text">Tellier Néo / Rosier Valentin - 2023 - Projet E</div>
